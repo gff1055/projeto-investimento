@@ -11,6 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['uses'=>'Controller@homep']);
+Route::get('/cadastro', ['uses'=>'Controller@cad']);
+Route::get('/login', ['uses'=>'Controller@fazLog']);
+
+/*Route::get('/', function () {
+	echo "Mensagem";
+    //return view('welcome');
+});*/
