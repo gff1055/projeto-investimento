@@ -19,14 +19,14 @@ class User extends Authenticatable
      */
     public $timestamps=true;
     protected $table='users';
-    protected $fillable = ['cpf', 'name', 'phone','birth','gender','notes','email','password','status','permission',];
+    protected $fillable = ['cpf', 'name', 'phone','birth','gender','notes','email','password','status','permission'];
 
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token',];
+    protected $hidden = ['password', 'remember_token'];
 
 
 }

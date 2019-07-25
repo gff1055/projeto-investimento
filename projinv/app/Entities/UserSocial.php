@@ -20,20 +20,14 @@ class UserSocial extends Model
      */
     public $timestamps=true;
     protected $table='users';
-    protected $fillable = [];
-/*
-    $table->integer('user_id')->unsigned();
-            $table->string('social_network');
-            $table->string('social_id');
-            $table->string('social_email');
-            $table->string('social_avatar');
-*/
+    protected $fillable=['user_id','social_network','social_id','social_email','social_avatar'];
+    
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token',];
+    protected $hidden = [];
 
 
 }
