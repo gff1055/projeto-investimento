@@ -11,11 +11,15 @@
 |
 */
 
-Route::get('/', ['uses'=>'Controller@homep']);
-Route::get('/cadastro', ['uses'=>'Controller@cad']);
-Route::get('/login', ['uses'=>'Controller@fazLog']);
+Route::get('/', ['uses'=>'Controller@homepage']);
+Route::get('/cadastro', ['uses'=>'Controller@cadastrar']);
 
-/*Route::get('/', function () {
-	echo "Mensagem";
-    //return view('welcome');
-});*/
+
+
+/*
+Rotas para a auteinticacao do usuario
+*/
+
+Route::get('/login', ['uses'=>'Controller@fazerLogin']);
+Route::post('/login', ['as'=>'user.login','uses'=>'Controller@fazerLogin']);
+

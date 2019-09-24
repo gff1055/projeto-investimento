@@ -11,18 +11,24 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    public function homep(){
+    public function homepage(){
     	$var = "Homepage do sistema para grupos de investimento";
-    	return view("welcome", ['title'=>$var]);
+    	return view("welcome", [
+            'title'=>$var
+            ]);
     }
 
 
-    public function cad(){
+    public function cadastrar(){
     	echo "Tela de Cadastro";
     }
 
+    /*
+        Metodos para o login do usuario na view
+    */
 
-    public function fazLog(){
+    public function fazerLogin(){
+        return view('user.login');
     	echo "tela de Login";
     }
 

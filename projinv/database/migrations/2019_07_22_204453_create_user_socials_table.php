@@ -39,7 +39,7 @@ class CreateUserSocialsTable extends Migration
     {
         // removendo os relacionamentos
         Schema::table('user_socials', function(Blueprint $table){
-            $table->dropForeign('user_socials_id_foreign');
+            $table->dropForeign('user_socials_user_id_foreign');
             $table->dropForeign('user_socials_social_email_foreign');
         });
         
