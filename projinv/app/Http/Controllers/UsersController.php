@@ -1,5 +1,9 @@
 <?php
 
+
+/**
+ * Cadastro edicção e manutencao de usuarios
+ */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

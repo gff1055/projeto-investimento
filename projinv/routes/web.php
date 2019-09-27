@@ -21,5 +21,5 @@ Rotas para a auteinticacao do usuario
 */
 
 Route::get('/login', ['uses'=>'Controller@fazerLogin']);
-Route::post('/login', ['as'=>'user.login','uses'=>'Controller@fazerLogin']);
+Route::post('/login', ['as'=>'user.login','uses'=>'DashboardController@auth']);
 
