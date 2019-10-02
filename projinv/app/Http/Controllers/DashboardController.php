@@ -19,6 +19,10 @@ class DashboardController extends Controller
         $this->validator  = $validator;
     }
 
+    public function index(){
+        return "Estamos na index(dashboard)";
+    }
+
     public function auth(Request $request){
         $data=[
             'email' => $request->get('username'),
@@ -26,9 +30,9 @@ class DashboardController extends Controller
         ];
 
         try{
-            Auth::attempt($data, false);
-            return 
-        }catch(Exception $e){
+            \Auth::attempt($data, false);
+            return redirect()->route('user.dashboard');
+        }catch(\Exception $e){
             return $e->getMessage();
         }
 
@@ -36,4 +40,6 @@ class DashboardController extends Controller
         dd($request->all()); /* dump and die() [var_dump and die]*/
         echo "Auth method";
     }
+
+
 }
