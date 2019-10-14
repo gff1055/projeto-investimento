@@ -13,6 +13,7 @@ class CreateUserSocialsTable extends Migration
      */
     public function up()
     {
+        /*
         Schema::create('user_socials', function (Blueprint $table) {
             $table->increments('id');
 
@@ -25,9 +26,10 @@ class CreateUserSocialsTable extends Migration
             $table->timestamps();
 
             // chaves estrangeiras
-            $table->foreign('user_id')->reference('id')->on('users');
-            $table->foreign('social_email')->reference('email')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('social_email')->references('email')->on('users');
         });
+        */
     }
 
     /**
@@ -37,6 +39,7 @@ class CreateUserSocialsTable extends Migration
      */
     public function down()
     {
+        /*
         // removendo os relacionamentos
         Schema::table('user_socials', function(Blueprint $table){
             $table->dropForeign('user_socials_user_id_foreign');
@@ -44,5 +47,6 @@ class CreateUserSocialsTable extends Migration
         });
         
         Schema::dropIfExists('user_socials');
+        */
     }
 }
