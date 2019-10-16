@@ -28,5 +28,14 @@ class User extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
+    /*Metodo para trabalhar o registro da senha*/
+    /** metodo para definir a senha
+     * Toda vez que for definido um password para o objeto, esse metodo será acionado
+    */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = env('PASSWORD_HASH') ? bcrypt($value) : $value;
+    }
+
 
 }
