@@ -24,7 +24,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return "Estamos na index(dashboard)";
+        return view('user.dashboard');
     }
 
     /** metodo de autenticacao */
