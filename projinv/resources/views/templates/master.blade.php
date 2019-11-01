@@ -5,6 +5,8 @@
         <title>Investindo</title>
         @yield('css-view')
         <link rel="stylesheet" href="{{asset('css/stylesheet.css')}}">
+        <link href="https://fonts.googleapis.com/css?family=Fredoka+One&display=swap" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     </head>
 
     <body>

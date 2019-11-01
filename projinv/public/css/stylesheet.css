@@ -89,7 +89,9 @@ section#conteudo-view form input[type="submit"]{
 }
 
 
-
+body{
+    background-color: #f7f7f7
+}
 /*
 ==========================================
 Estilizacao para o menu lateral
@@ -102,6 +104,7 @@ Estilizacao para o menu lateral
     float: left;
     width: 220px;
     height: 100%;
+    background: #ffffff;
     border-right: 1px solid #e9e9e9;
     box-shadow: 0 0 15px rgba(0,0,0,.15);
 }
@@ -118,6 +121,7 @@ Estilizacao para o menu lateral
     float: left;
     width: 100%;
     height: 80px;
+    color: #9c9c9c;
     border-bottom: 1px solid #e9e9e9;
 }
 
@@ -126,6 +130,10 @@ Estilizacao para o menu lateral
     float: left;
     height: 80px;
     width: 80px;
+    color: inherit;
+    text-align: center;
+    line-height: 80px;
+    font-size: 2em;
 }
 
 #principal ul li a h3
@@ -133,8 +141,13 @@ Estilizacao para o menu lateral
     float: left;
     height: 80px;
     width: 80px;
-    font: 1em "Fredoka One", cursive;
-    color: #0e8658;
+    font: 1.25em/80px "Fredoka One", cursive;
+    
+}
+
+#principal ul li a:hover
+{
+    color: #00ff9c;
 }
 
 
