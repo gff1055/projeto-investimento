@@ -3,7 +3,7 @@
 
 
 @section('conteudo-view')
-    Dashboard
+    
 @endsection
 
 

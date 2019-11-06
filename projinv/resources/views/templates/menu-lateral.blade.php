@@ -1,7 +1,7 @@
 <nav id="principal">
     <ul>
         <li>
-            <a href="">
+            <a href="http://localhost:8000/user">
                 <i class="fa fa-user"></i>
                 <h3>Usuários</h3>
             </a>
