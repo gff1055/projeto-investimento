@@ -11,8 +11,20 @@
 |
 */
 
-Route::get('/', ['uses'=>'Controller@homepage']);
-Route::get('/cadastro', ['uses'=>'Controller@cadastrar']);
+Route::get(
+    '/',
+    [
+        'uses'  =>'Controller@homepage'
+    ]
+);
+
+
+Route::get(
+    '/cadastro',
+    [
+        'uses'  =>'Controller@cadastrar'
+    ]
+);
 
 
 
@@ -20,10 +32,41 @@ Route::get('/cadastro', ['uses'=>'Controller@cadastrar']);
 Rotas para a auteinticacao do usuario
 */
 
-Route::get('/login', ['uses'=>'Controller@fazerLogin']);
-Route::post('/login', ['as'=>'user.login','uses'=>'DashboardController@auth']);
-Route::get('/dashboard', ['as'=>'user.dashboard','uses'=>'DashboardController@index']);
+Route::get(
+    '/login',
+    [
+        'uses'  =>'Controller@fazerLogin'
+    ]
+);
 
 
-Route::get('/user', ['as' => 'user.index', 'uses' => 'UsersController@index']);
+Route::post(
+    '/login',
+    [
+        'as'    =>'user.login',
+        'uses'  =>'DashboardController@auth'
+    ]
+);
 
+
+Route::get(
+    '/dashboard',
+    [
+        'as'    =>'user.dashboard',
+        'uses'  =>'DashboardController@index'
+    ]
+);
+
+
+Route::get(
+    '/user',
+    [
+        'as'    => 'user.index',
+        'uses' => 'UsersController@index'
+    ]
+);
+
+Route::resource(
+    'user',
+    'UsersController'
+);
