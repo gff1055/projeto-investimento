@@ -55,19 +55,22 @@ class UsersController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
-        $request    = $this->service->store($request->all());
+        $request = $this->service->store($request->all());
 
-        if($request['success'])
-            $usuario    = $request['data'];
-        else
-            $usuario   = null;
+        $usuario = $request['success'] ? $request['data'] : null;
+
+        session()->flush(
+            'success',
+            [
+                'success' => $request['success'],
+                'messages' => $request['messages'],
+            ]
+        );
 
         return
         view(
             'user.index',
-            [
-                'usuario'   => $usuario,
-            ]
+            ['usuario' => $usuario,]
         );
     }
 
@@ -84,9 +87,9 @@ class UsersController extends Controller
 
         if (request()->wantsJson()) {
 
-            return response()->json([
-                'data' => $user,
-            ]);
+            return response()->json(
+                ['data' => $user,]
+            );
         }
 
         return view('users.show', compact('user'));

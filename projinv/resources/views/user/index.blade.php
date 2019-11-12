@@ -13,6 +13,13 @@
 
 
 @section('conteudo-view')
+
+    @if(session('success'))
+        <h3>{{ session('success')['messages'] }}</h3>
+    @else
+        <h3>Nao houve retorno</h3>
+    @endif
+
     <!-- Definindo a abertura do formulario -->
     {!! Form::open(
             [
@@ -22,8 +29,16 @@
             ]
         ) !!}
 
-        @include('templates.formulario.input', ['input' => 'cpf', 'attributes' => ['placeholder' => 'CPF']])
-        @include('templates.formulario.input', ['input' => 'name', 'attributes' => ['placeholder' => 'Nome']])
+        @include(
+            'templates.formulario.input', 
+            [
+                'input' => 'cpf', 
+                'attributes' => ['placeholder' => 'CPF']
+            ]
+        )
+        @include(
+            'templates.formulario.input',
+            ['input' => 'name', 'attributes' => ['placeholder' => 'Nome']])
         @include('templates.formulario.input', ['input' => 'phone', 'attributes' => ['placeholder' => 'Telefone']])
         @include('templates.formulario.input', ['input' => 'email', 'attributes' => ['placeholder' => 'E-mail']])
         @include('templates.formulario.password', ['input' => 'password', 'attributes' => ['placeholder' => 'Senha']])
