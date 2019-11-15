@@ -16,8 +16,6 @@
 
     @if(session('success'))
         <h3>{{ session('success')['messages'] }}</h3>
-    @else
-        <h3>Nao houve retorno</h3>
     @endif
 
     <!-- Definindo a abertura do formulario -->
@@ -46,5 +44,53 @@
 
     <!-- Definindo a abertura do formulario -->
     {!! Form::close() !!}
+
+    <table class="default-table">
+        <thead>
+            <tr>
+                <td>#</td>
+                <td>CPF</td>
+                <td>Nome</td>
+                <td>Telefone</td>
+                <td>Nascimento</td>
+                <td>E-mail</td>
+                <td>Status</td>
+                <td>Permissao</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+            </tr>
+            <tr>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+            </tr>
+            <tr>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+                <td>Teste</td>
+            </tr>
+        </tbody>
+    </table>
+
 @endsection
 

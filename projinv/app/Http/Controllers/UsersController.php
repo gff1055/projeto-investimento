@@ -59,7 +59,7 @@ class UsersController extends Controller
 
         $usuario = $request['success'] ? $request['data'] : null;
 
-        session()->flush(
+        session()->flash(
             'success',
             [
                 'success' => $request['success'],

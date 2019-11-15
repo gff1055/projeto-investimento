@@ -1,4 +1,4 @@
 <label class="{{$class ?? null}}">
-    <span>{{$input}}</span>
+    <span>{{$label ?? $input ?? "ERRO"}}</span>
     {!!Form::text($input, $value ?? null, $attributes)!!}
 </label>
