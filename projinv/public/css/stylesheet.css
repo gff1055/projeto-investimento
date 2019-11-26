@@ -105,9 +105,10 @@ Estilizacao para o menu lateral
     width: 220px;
     height: 100%;
     background: #ffffff;
-    z-index:5;
     border-right: 1px solid #e9e9e9;
     box-shadow: 0 0 15px rgba(0,0,0,.15);
+    z-index:5;
+    
 }
 
 #principal ul,
@@ -143,7 +144,6 @@ Estilizacao para o menu lateral
     height: 80px;
     width: 80px;
     font: 1.25em/80px "Fredoka One", cursive;
-    
 }
 
 #principal ul li a:hover

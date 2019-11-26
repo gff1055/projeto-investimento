@@ -41,8 +41,19 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('user.index');
+        // atribuindo uma colecao de todos(all) os usuarios
+        $users = $this->repository->all();
+
+        // passando para a view um array com os dados dos usuarios
+        return
+        view(
+            'user.index',
+            [
+                'users' => $users
+            ]
+        );
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -55,6 +66,7 @@ class UsersController extends Controller
      */
     public function store(UserCreateRequest $request)
     {
+
         $request = $this->service->store($request->all());
 
         $usuario = $request['success'] ? $request['data'] : null;

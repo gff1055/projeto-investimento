@@ -46,20 +46,14 @@ class DashboardController extends Controller
             {
                 $user = $this->repository->findWhere(['email' => $request->get('username')])->first();
                 /* buscando o email */
-
                 if(!$user)
                 /* Caso não encontre o usuario*/
                     throw new Exception("E-mail informado é invalido....");
-
                 if($user->password != $request->get('password'))
                 /** Testando a senha inserida */
                     throw new Exception("A senha informada é invalida...");
-
                 Auth::login($user);
                 /* Fazendo autenticacao do usuario a partir do proprio objeto */
-
-                
-
             }
             return redirect()->route('user.dashboard');
         }
@@ -67,11 +61,7 @@ class DashboardController extends Controller
         {
             return $e->getMessage();
         }
-
-        
         dd($request->all()); /* dump and die() [var_dump and die]*/
         echo "Auth method";
     }
-
-
 }

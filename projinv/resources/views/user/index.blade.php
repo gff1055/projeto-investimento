@@ -25,7 +25,7 @@
                 'method' => 'post',
                 'class' => 'form-padrao'
             ]
-        ) !!}
+    ) !!}
 
         @include(
             'templates.formulario.input', 
@@ -34,13 +34,53 @@
                 'attributes' => ['placeholder' => 'CPF']
             ]
         )
+
         @include(
             'templates.formulario.input',
-            ['input' => 'name', 'attributes' => ['placeholder' => 'Nome']])
-        @include('templates.formulario.input', ['input' => 'phone', 'attributes' => ['placeholder' => 'Telefone']])
-        @include('templates.formulario.input', ['input' => 'email', 'attributes' => ['placeholder' => 'E-mail']])
-        @include('templates.formulario.password', ['input' => 'password', 'attributes' => ['placeholder' => 'Senha']])
-        @include('templates.formulario.submit', ['input' => 'Cadastrar'])
+            [
+                'input' => 'name',
+                'attributes' => [
+                    'placeholder' => 'Nome'
+                ]
+            ]
+        )
+
+        @include(
+            'templates.formulario.input',
+            [
+                'input' => 'phone',
+                'attributes' => [
+                    'placeholder' => 'Telefone'
+                ]
+            ]
+        )
+        
+        @include(
+            'templates.formulario.input',
+            [
+                'input' => 'email',
+                'attributes' => [
+                    'placeholder' => 'E-mail'
+                ]
+            ]
+        )
+
+        @include(
+            'templates.formulario.password',
+            [
+                'input' => 'password',
+                'attributes' => [
+                    'placeholder' => 'Senha'
+                ]
+            ]
+        )
+        
+        @include(
+            'templates.formulario.submit',
+            [
+                'input' => 'Cadastrar'
+            ]
+        )
 
     <!-- Definindo a abertura do formulario -->
     {!! Form::close() !!}
@@ -59,36 +99,19 @@
             </tr>
         </thead>
         <tbody>
+            <!-- utilizando colecao de usuarios vindos do controller(user) -->
+            @foreach($users as $user)
             <tr>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
+                <td>{{ $user->id }}</td>
+                <td>{{ $user->cpf }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->phone }}</td>
+                <td>{{ $user->birth }}</td>
+                <td>{{ $user->gender }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->status }}</td>
             </tr>
-            <tr>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-            </tr>
-            <tr>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-                <td>Teste</td>
-            </tr>
+            @endforeach
         </tbody>
     </table>
 
