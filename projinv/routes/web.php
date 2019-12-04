@@ -11,6 +11,7 @@
 |
 */
 
+// DEFINICAO DA ROTA RAIZ (classe ROUTE)
 Route::get(
     '/',
     [
@@ -29,7 +30,7 @@ Route::get(
 
 
 /*
-Rotas para a auteinticacao do usuario
+Rotas para a autenticacao do usuario
 */
 
 Route::get(
@@ -39,15 +40,15 @@ Route::get(
     ]
 );
 
-
 Route::post(
     '/login',
     [
+        //DANDO NOME PARA A ROTA
         'as'    =>'user.login',
+        // METODO QUE FAZ A AUTENTICACAO
         'uses'  =>'DashboardController@auth'
     ]
 );
-
 
 Route::get(
     '/dashboard',
@@ -57,7 +58,6 @@ Route::get(
     ]
 );
 
-
 Route::get(
     '/user',
     [
@@ -66,7 +66,9 @@ Route::get(
     ]
 );
 
+// definindo um grupo de rotas(delete, update, etc...) para users(usersController)
 Route::resource(
     'user',
     'UsersController'
 );
+

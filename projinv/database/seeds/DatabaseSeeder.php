@@ -1,17 +1,18 @@
 <?php
 
 use Illuminate\Database\Seeder;
+
+// Classe modelo de usuarios
 use App\Entities\User;
 
+//
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
+   
+    // Todas as seeds passam por esse metodo
     public function run()
     {
+        // Criando um usuario
         User::create(
             [
                 'cpf' =>'12345678902',

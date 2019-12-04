@@ -21,14 +21,19 @@
     <!-- Definindo a abertura do formulario -->
     {!! Form::open(
             [
+                // ROTA QUE O FORMULARIO VAI ACIONAR AO SER ENVIADO
                 'route' => 'user.store',
+                //METODO DE ENVIO
                 'method' => 'post',
+                // CLASSE DOR FORMULARIO
                 'class' => 'form-padrao'
             ]
     ) !!}
 
         @include(
+            // ENDEREÇO DA VIEW
             'templates.formulario.input', 
+            // ARRAY COM AS VARIAVEIS
             [
                 'input' => 'cpf', 
                 'attributes' => ['placeholder' => 'CPF']
@@ -36,7 +41,9 @@
         )
 
         @include(
+            // ENDEREÇO DA VIEW
             'templates.formulario.input',
+            // ARRAY COM AS VARIAVEIS
             [
                 'input' => 'name',
                 'attributes' => [
@@ -46,7 +53,9 @@
         )
 
         @include(
+            // ENDEREÇO DA VIEW
             'templates.formulario.input',
+            // ARRAY COM AS VARIAVEIS
             [
                 'input' => 'phone',
                 'attributes' => [
@@ -56,7 +65,9 @@
         )
         
         @include(
+            // ENDEREÇO DA VIEW
             'templates.formulario.input',
+            // ARRAY COM AS VARIAVEIS
             [
                 'input' => 'email',
                 'attributes' => [
@@ -66,7 +77,9 @@
         )
 
         @include(
+            // ENDEREÇO DA VIEW
             'templates.formulario.password',
+            // ARRAY COM AS VARIAVEIS
             [
                 'input' => 'password',
                 'attributes' => [
@@ -76,7 +89,9 @@
         )
         
         @include(
+            // ENDEREÇO DA VIEW
             'templates.formulario.submit',
+            // ARRAY COM AS VARIAVEIS
             [
                 'input' => 'Cadastrar'
             ]
@@ -96,6 +111,7 @@
                 <td>E-mail</td>
                 <td>Status</td>
                 <td>Permissao</td>
+                <td>Menu</td>
             </tr>
         </thead>
         <tbody>
@@ -110,6 +126,18 @@
                 <td>{{ $user->gender }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->status }}</td>
+                <td>
+                    {!! Form::open(
+                        [
+                            'route' =>  [
+                                'user.destroy',
+                                $user->id
+                            ]
+                        ]
+                    ) !!}
+                    {!!Form::submit('Remover')!!}
+                    {!! Form::close() !!}
+                </td>
             </tr>
             @endforeach
         </tbody>

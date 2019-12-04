@@ -10,42 +10,53 @@
     <body>
 
         <div class="background">
-
         </div>
+
         <section id="conteudo-view" class="login">
             
             <h1>Investindo</h1>
             <h3>O nosso gerenciador de investimento</h3>
 
-            {!! Form::open(['route'=>'user.login','method'=>'post']) !!}
+            <!-- Abrindo o formulario -->
+            {!! Form::open(
+                [
+                    'route' => 'user.login',
+                    'method' => 'post'
+                ]
+            ) !!}
 
-            <p>Acesse o sistema</p>
+                <p>Acesse o sistema</p>
 
-            <label>
-                <!-- imprime campo de texto -->
-                {!! Form::text('username',null, ['class'=>'input', 'placeholder'=>'usuario']) !!} 
-                <!--TEXT -> imprime campo de texto
-                    USERNAME -> nome do input
-                    NULL -> valor padrao
-                    ['CLASS'=>'INPUT', 'PLACEHOLDER'=>'USUARIO'] -> Array de atributos para p input
-                -->
-            </label>
+                <label>
+                    <!-- IMPRIME CAMPO DE TEXTO -->
+                    {!! Form::text(
+                        // NOME DO INPUT
+                        'username',
+                        // VALOR PADRAO
+                        null,
+                        // ATRIBUTOS DESSE INPUT
+                        [
+                            'class' => 'input',
+                            'placeholder' => 'usuario'
+                        ]
+                    ) !!} 
+                </label>
 
-            <label>
-                {!! Form::password('password', ['placeholder'=>'senha']) !!}
-                <!--PASSWORD -> imprime campo de senha
-                    PASSWORD -> nome do input
-                    ['PLACEHOLDER'=>'SENHA'])  Array de atributos para p input
-                -->
-            </label>
+                <label>
+                    <!-- MOSTRA O CAMPO DE TEXTO TIPO password -->
+                    {!! Form::password(
+                        // NOME DO INPUT
+                        'password',
+                        // ATRIBUTOS DO INPUT
+                        [
+                            'placeholder' => 'senha'
+                        ]
+                    ) !!}
+                </label>
 
-            {!! Form::submit('Entrar') !!}
-            <!--SUBMIT -> imprime campo de submissao
-                ENTRAR -> nome exibido no botao
-            -->
-                
-           
-
+                {!! Form::submit('Entrar') !!}
+                           
+            <!-- Fechando o formulario -->
             {!! Form::close() !!}
 
         </section>

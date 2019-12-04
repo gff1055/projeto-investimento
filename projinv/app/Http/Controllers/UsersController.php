@@ -1,9 +1,6 @@
 <?php
 
 
-/**
- * Cadastro edicção e manutencao de usuarios
- */
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -34,19 +31,14 @@ class UsersController extends Controller
 
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         // atribuindo uma colecao de todos(all) os usuarios
         $users = $this->repository->all();
 
         // passando para a view um array com os dados dos usuarios
-        return
-        view(
+        return view(
             'user.index',
             [
                 'users' => $users
@@ -55,15 +47,6 @@ class UsersController extends Controller
     }
 
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  UserCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
     public function store(UserCreateRequest $request)
     {
 
@@ -79,10 +62,11 @@ class UsersController extends Controller
             ]
         );
 
-        return
-        view(
+        return view(
             'user.index',
-            ['usuario' => $usuario,]
+            [
+                'usuario' => $usuario,
+            ]
         );
     }
 
@@ -174,16 +158,17 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
+        // acionando o metodo destroy da camada service
+        $request = $this->service->destroy($id);
 
-        if (request()->wantsJson()) {
+        session()->flash(
+            'success',
+            [
+                'success' => $request['success'],
+                'messages' => $request['messages'],
+            ]
+        );
 
-            return response()->json([
-                'message' => 'User deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'User deleted.');
+        return view('user.index');
     }
 }
