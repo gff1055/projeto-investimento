@@ -1,11 +1,12 @@
-<?php /* camada para a regras de negocio */
+<?php
+/* camada para a regras de negocio */
 
+// DEFININDO O NAMESPACE
 namespace App\Services;
 
 use Illuminate\Database\QueryException;
 use Exception;
 use Prettus\Validator\Exceptions\ValidatorException;
-
 use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -13,17 +14,21 @@ use Prettus\Validator\Contracts\ValidatorInterface;
 
 class UserService
 {
-    private $repository;
-    /* vai gerenciar obj user em aspecto de banco de dados */
     
+    /* vai gerenciar obj user em aspecto de banco de dados */
+    private $repository;
+    
+    // 
     private $validator;
 
+    // CONSTRUTOR (COM INJECAO DE DEPENDENCIA)
     public function __construct(UserRepository $repository, UserValidator $validator)
     {
         $this->repository = $repository;
         $this->validator = $validator;
     }
 
+    // METODO ONDE É FEITO O CADASTRO DE USUARIOS
     public function store($data)
     {
         try
@@ -45,16 +50,15 @@ class UserService
         {
             switch(get_class($e))
             {
+                // RETORNANDO ARRAY EM CASO DE EXCECAO
                 case QueryException::class:
-                    return
-                    [
+                    return [
                         'success' => false,
                         'messages' => $e->getMessage()
                     ];
                 
                 case ValidatorException::class:
-                    return
-                    [
+                    return [
                         'success' => false,
                         'messages' => $e->getMessagesBag()
                     ];
