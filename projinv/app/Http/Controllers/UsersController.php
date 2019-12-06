@@ -21,8 +21,12 @@ use App\Services\UserService;
  */
 class UsersController extends Controller
 {
+
     protected $repository;
+
+    // VARIAVEL PARA A CAMADA DE SERVICE
     protected $service;
+
 
     public function __construct(UserRepository $repository, UserService $service)
     {
@@ -47,11 +51,14 @@ class UsersController extends Controller
     }
 
 
+    // METODO ONDE É FEITO A REQUISICAO DE CADASTRO DE USUARIO
     public function store(UserCreateRequest $request)
     {
 
+        // PEGANDO OS DADOS VINDOS DO FORMULARIO ($request) E OS ENVIA PARA O SERVICE PARA CADASTRO (store)
         $request = $this->service->store($request->all());
 
+        // RECEBENDO A RESPOSTA DA ACAO
         $usuario = $request['success'] ? $request['data'] : null;
 
         session()->flash(

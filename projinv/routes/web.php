@@ -66,9 +66,15 @@ Route::get(
     ]
 );
 
-// definindo um grupo de rotas(delete, update, etc...) para users(usersController)
+// DEFININDO UM GRUPO DE ROTAS(delete, update, etc...) PARA USERS(usersController)
 Route::resource(
+    // NOME DA ROTA
     'user',
+    // NOME DO CONTROLLER
     'UsersController'
+    // ARRAY DE DADOS(NOME DAS ROTAS)
+    /*
+    ..........
+    */
 );
 

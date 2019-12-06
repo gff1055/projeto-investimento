@@ -28,21 +28,24 @@ class UserService
         $this->validator = $validator;
     }
 
-    // METODO ONDE É FEITO O CADASTRO DE USUARIOS
+    // METODO ONDE É FEITO O CADASTRO DE USUARIO
     public function store($data)
     {
         try
         {
-            // Validando os dados passados
+            // VALIDANDO OS DADOS DO USUARIO PASSADOS
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            // Criando o usuario no banco usando a classe do repositorio
+            // CRIANDO O USUARIO NO BANCO USANDO A CLASSE DE REPOSITORIO
             $usuario = $this->repository->create($data);
 
             return
             [
+                // SUCESSO NO RETORNO DOS DADOS
                 'success'   => true,
+                // MENSAGEM A SER ENVIADA
                 'messages'   => 'Usuario cadastrado',
+                // DADOS DO USUARIO CADASTRADO
                 'data'      => $usuario,
             ];
         }
@@ -53,6 +56,7 @@ class UserService
                 // RETORNANDO ARRAY EM CASO DE EXCECAO
                 case QueryException::class:
                     return [
+                        // NAO OBTEVE SUCESSO
                         'success' => false,
                         'messages' => $e->getMessage()
                     ];
