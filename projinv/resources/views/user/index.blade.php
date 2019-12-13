@@ -14,7 +14,9 @@
 
 @section('conteudo-view')
 
+    <? // CASO A SESSAO success EXISTA ?>
     @if(session('success'))
+        <? // IMPRIMINDO A VARIAVEL messages DA VARIAVEL DE SESSAO success ?>
         <h3>{{ session('success')['messages'] }}</h3>
     @endif
 
@@ -29,7 +31,7 @@
                 'class' => 'form-padrao'
             ]
     ) !!}
-
+        <? // ADICIONANDO OS INPUTS DO FORMULARIO?>
         @include(
             // ENDEREÇO DA VIEW
             'templates.formulario.input', 
@@ -97,10 +99,12 @@
             ]
         )
 
-    <!-- Definindo a abertura do formulario -->
+    <!-- Definindo a FECHAMENTO do formulario -->
     {!! Form::close() !!}
 
+
     <table class="default-table">
+        <!-- COLUNAS DA TABELA -->
         <thead>
             <tr>
                 <td>#</td>
@@ -114,6 +118,8 @@
                 <td>Menu</td>
             </tr>
         </thead>
+
+        <!-- COLUNAS DA TABELA -->
         <tbody>
             <!-- utilizando colecao de usuarios vindos do controller(user) -->
             @foreach($users as $user)
@@ -127,15 +133,19 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->status }}</td>
                 <td>
+                    <? // CRIANDO O BOTAO REMOVER ?>
                     {!! Form::open(
                         [
                             'route' =>  [
+                                // ROTA PARA REMOCAO
                                 'user.destroy',
+                                // ID A SER REMOVIDO
                                 $user->id
-                            ]
+                            ],
+                            'method' => 'DELETE'
                         ]
                     ) !!}
-                    {!!Form::submit('Remover')!!}
+                        {!!Form::submit('Remover')!!}
                     {!! Form::close() !!}
                 </td>
             </tr>

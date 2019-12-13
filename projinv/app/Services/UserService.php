@@ -12,8 +12,7 @@ use App\Validators\UserValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
 
-class UserService
-{
+class UserService{
     
     /* vai gerenciar obj user em aspecto de banco de dados */
     private $repository;
@@ -22,17 +21,14 @@ class UserService
     private $validator;
 
     // CONSTRUTOR (COM INJECAO DE DEPENDENCIA)
-    public function __construct(UserRepository $repository, UserValidator $validator)
-    {
+    public function __construct(UserRepository $repository, UserValidator $validator){
         $this->repository = $repository;
         $this->validator = $validator;
     }
 
     // METODO ONDE É FEITO O CADASTRO DE USUARIO
-    public function store($data)
-    {
-        try
-        {
+    public function store($data){
+        try{
             // VALIDANDO OS DADOS DO USUARIO PASSADOS
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
 
@@ -49,20 +45,20 @@ class UserService
                 'data'      => $usuario,
             ];
         }
-        catch(Exception $e)
-        {
-            switch(get_class($e))
-            {
+        catch(Exception $e){
+            switch(get_class($e)){
                 // RETORNANDO ARRAY EM CASO DE EXCECAO
                 case QueryException::class:
-                    return [
+                    return
+                    [
                         // NAO OBTEVE SUCESSO
                         'success' => false,
                         'messages' => $e->getMessage()
                     ];
                 
                 case ValidatorException::class:
-                    return [
+                    return
+                    [
                         'success' => false,
                         'messages' => $e->getMessagesBag()
                     ];
@@ -96,13 +92,13 @@ class UserService
 
     }
 
-    public function delete($user_id)
-    {
-        try
-        {
-            
-            $this->repository->destroy($data);
+    /** METODO PARA REMOÇÃO */
+    public function destroy($user_id){
+        try{
+            // EXCLUINDO O USUARIO ASSOCIADO COM O ID
+            $this->repository->delete($user_id);
 
+            // RETORNANDO O RESULDATO DA REMOÇAO
             return
             [
                 'success'   => true,
@@ -110,10 +106,9 @@ class UserService
                 'data'      => null,
             ];
         }
-        catch(Exception $e)
-        {
-            switch(get_class($e))
-            {
+        // CASO HAJA ALGUMA EXCECAO
+        catch(Exception $e){
+            switch(get_class($e)){
                 case QueryException::class:
                     return
                     [

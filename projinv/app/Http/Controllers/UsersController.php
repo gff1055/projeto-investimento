@@ -28,8 +28,7 @@ class UsersController extends Controller
     protected $service;
 
 
-    public function __construct(UserRepository $repository, UserService $service)
-    {
+    public function __construct(UserRepository $repository, UserService $service){
         $this->repository   = $repository;
         $this->service      = $service;
 
@@ -51,24 +50,27 @@ class UsersController extends Controller
     }
 
 
-    // METODO ONDE É FEITO A REQUISICAO DE CADASTRO DE USUARIO
-    public function store(UserCreateRequest $request)
-    {
+    // METODO QUE ENVIA OS DADOS PARA O CADASTRO
+    public function store(UserCreateRequest $request){
 
-        // PEGANDO OS DADOS VINDOS DO FORMULARIO ($request) E OS ENVIA PARA O SERVICE PARA CADASTRO (store)
+        // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
         $request = $this->service->store($request->all());
 
-        // RECEBENDO A RESPOSTA DA ACAO
+        // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
         $usuario = $request['success'] ? $request['data'] : null;
 
-        session()->flash(
+        // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI CADASTRADO OU NAO
+        session()->flash( // METODO QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW
+            // NOME DA SESSAO
             'success',
+            // DADOS ARMAZENADOS NESSA SESSAO
             [
                 'success' => $request['success'],
                 'messages' => $request['messages'],
             ]
         );
 
+        // RETORNANDO OS DADOS DO USUARIO
         return view(
             'user.index',
             [
@@ -165,17 +167,21 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        // acionando o metodo destroy da camada service
+        // RECEBENDO A RESPOSTA DO SERVICE SOBRE A REMOÇÃO DO ID SELECIONADO
         $request = $this->service->destroy($id);
 
-        session()->flash(
+        // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI EXCLUIDO OU NAO
+        session()->flash( // METODO QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW
+            // NOME DA SESSAO
             'success',
+            // DADOS ARMAZENADOS NESSA SESSAO
             [
                 'success' => $request['success'],
                 'messages' => $request['messages'],
             ]
         );
 
-        return view('user.index');
+        // MANDA O USUARIO PARA A ROTA APOS A REMOÇAO
+        return redirect()->route('user.index');
     }
 }
