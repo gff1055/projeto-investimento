@@ -8,7 +8,8 @@
         </li>
 
         <li>
-            <a href="">
+        <? // CONFIGURANDO A ROTA PADRAO DE INSTITUTIONS ?>
+        <a href="{{ route('institution.index') }}">
                 <i class="fa fa-building-o"></i>
                 <h3>Instituições</h3>
             </a>

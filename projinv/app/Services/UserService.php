@@ -98,7 +98,7 @@ class UserService{
             // EXCLUINDO O USUARIO ASSOCIADO COM O ID
             $this->repository->delete($user_id);
 
-            // RETORNANDO O RESULDATO DA REMOÇAO
+            // RETORNANDO O RESULTADO DA REMOÇAO
             return
             [
                 'success'   => true,

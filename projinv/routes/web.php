@@ -53,6 +53,7 @@ Route::post(
 Route::get(
     '/dashboard',
     [
+        // NOME DADO PARA A ROTA
         'as'    =>'user.dashboard',
         'uses'  =>'DashboardController@index'
     ]
@@ -76,5 +77,12 @@ Route::resource(
     /*
     ..........
     */
+);
+
+
+// CRIA ESTRUTURA (index, store, etc....)
+Route::resource(
+    'institution',
+    'InstitutionsController'
 );
 
