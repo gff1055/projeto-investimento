@@ -34,10 +34,10 @@ class DashboardController extends Controller
     public function auth(Request $request)
     {
         /* Dados enviados pelo usuario */
-        $data=[
-            'email' => $request->get('username'),
-            'password' => $request->get('password')
-        ];
+        $data = [
+                    'email' => $request->get('username'),
+                    'password' => $request->get('password')
+                ];
 
         try
         {

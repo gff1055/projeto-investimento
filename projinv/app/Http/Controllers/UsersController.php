@@ -28,7 +28,8 @@ class UsersController extends Controller
     protected $service;
 
 
-    public function __construct(UserRepository $repository, UserService $service){
+    public function __construct(UserRepository $repository, UserService $service)
+    {
         $this->repository   = $repository;
         $this->service      = $service;
 
@@ -41,11 +42,9 @@ class UsersController extends Controller
         $users = $this->repository->all();
 
         // passando para a view um array com os dados dos usuarios
-        return view(
-            'user.index',
-            [
-                'users' => $users
-            ]
+        return view('user.index',   [
+                                        'users' => $users
+                                    ]
         );
     }
 
@@ -148,9 +147,9 @@ class UsersController extends Controller
             if ($request->wantsJson()) {
 
                 return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
+                                            'error'   => true,
+                                            'message' => $e->getMessageBag()
+                                        ]);
             }
 
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();

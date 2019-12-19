@@ -18,7 +18,7 @@ class UserValidator extends LaravelValidator
      * @var array
      */
     protected $rules = [
-        // PREENCHENDO QUAIS DADOS SAO OBRIGATORIOS
+        // REGRAS DE VALIDAÇÃO AO SER CRIADO UM REGISTRO
         ValidatorInterface::RULE_CREATE => [
             'cpf' => 'required',
             'name' => 'required',

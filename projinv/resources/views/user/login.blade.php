@@ -18,12 +18,13 @@
             <h3>O nosso gerenciador de investimento</h3>
 
             <!-- Abrindo o formulario -->
-            {!! Form::open(
-                [
-                    'route' => 'user.login',
-                    'method' => 'post'
-                ]
-            ) !!}
+            {!! 
+            Form::open( [
+                            'route' => 'user.login',
+                            'method' => 'post'
+                        ]
+            )
+            !!}
 
                 <p>Acesse o sistema</p>
 

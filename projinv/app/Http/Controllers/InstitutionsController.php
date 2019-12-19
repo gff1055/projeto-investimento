@@ -51,11 +51,12 @@ class InstitutionsController extends Controller
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $institutions = $this->repository->all();
 
-        if (request()->wantsJson()) {
+        if (request()->wantsJson())
+        {
 
             return response()->json([
-                'data' => $institutions,
-            ]);
+                                        'data' => $institutions,
+                                    ]);
         }
 
         return view('institutions.index', compact('institutions'));
@@ -79,12 +80,12 @@ class InstitutionsController extends Controller
             $institution = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Institution created.',
-                'data'    => $institution->toArray(),
-            ];
+                            'message' => 'Institution created.',
+                            'data'    => $institution->toArray(),
+                        ];
 
-            if ($request->wantsJson()) {
-
+            if ($request->wantsJson())
+            {
                 return response()->json($response);
             }
 

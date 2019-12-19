@@ -10,9 +10,7 @@ class Institution extends Model implements Transformable
 {
     use TransformableTrait;
 
-
     protected $fillable = ['name'];
-
     
     public $timestamp = true;
 
