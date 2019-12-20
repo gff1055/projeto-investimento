@@ -4,6 +4,9 @@
 namespace App\Services;
 
 // CLASSES PARA AUXILIAR O DESENVOLVIMENTO DA CLASSE ATUAL
+use Illuminate\Database\QueryException;
+use Exception;
+use Prettus\Validator\Exceptions\ValidatorException;
 use App\Repositories\InstitutionRepository;
 use App\Validators\InstitutionValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -16,7 +19,7 @@ class InstitutionService
     private $validator;
 
     // CONSTRUTOR
-    public function __construct(InstitutionRespository $repository, InstitutionValidator $validator)
+    public function __construct(InstitutionRepository $repository, InstitutionValidator $validator)
     {
         /* vai gerenciar obj INSTITUTION em aspecto de banco de dados */
         $this->repository = $repository;
@@ -24,10 +27,11 @@ class InstitutionService
     }
 
     // METODO PARA FAZER A PERSISTENCIA NO BANCO
-    public function store(array $data)
+    public function store($data)
     {
         try
         {
+
             // VALIDANDO OS DADOS DA INSTITUIÇÃO PASSADA
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
             
@@ -45,7 +49,7 @@ class InstitutionService
                     ];
         }
         // EM CASO DE EXCECAO
-        catch(Exception $exception)
+        catch(Exception $e)
         {
             switch(get_class($e))
             {

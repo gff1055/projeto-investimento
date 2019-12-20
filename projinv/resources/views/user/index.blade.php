@@ -21,83 +21,57 @@
     @endif
 
     <!-- Definindo a abertura do formulario -->
-    {!! Form::open(
-            [
-                // ROTA QUE O FORMULARIO VAI ACIONAR AO SER ENVIADO
-                'route' => 'user.store',
-                //METODO DE ENVIO
-                'method' => 'post',
-                // CLASSE DOR FORMULARIO
-                'class' => 'form-padrao'
-            ]
-    ) !!}
-        <? // ADICIONANDO OS INPUTS DO FORMULARIO?>
-        @include(
-            // ENDEREÇO DA VIEW
-            'templates.formulario.input', 
-            // ARRAY COM AS VARIAVEIS
-            [
-                'input' => 'cpf', 
-                'attributes' => ['placeholder' => 'CPF']
-            ]
-        )
-
-        @include(
-            // ENDEREÇO DA VIEW
-            'templates.formulario.input',
-            // ARRAY COM AS VARIAVEIS
-            [
-                'input' => 'name',
-                'attributes' => [
-                    'placeholder' => 'Nome'
-                ]
-            ]
-        )
-
-        @include(
-            // ENDEREÇO DA VIEW
-            'templates.formulario.input',
-            // ARRAY COM AS VARIAVEIS
-            [
-                'input' => 'phone',
-                'attributes' => [
-                    'placeholder' => 'Telefone'
-                ]
-            ]
-        )
+    {!! Form::open( [
+                        // ROTA QUE O FORMULARIO VAI ACIONAR AO SER ENVIADO
+                        'route' => 'user.store',
+                        //METODO DE ENVIO
+                        'method' => 'post',
+                        // CLASSE DOR FORMULARIO
+                        'class' => 'form-padrao'
+                    ])
+    !!}
         
-        @include(
-            // ENDEREÇO DA VIEW
-            'templates.formulario.input',
-            // ARRAY COM AS VARIAVEIS
-            [
-                'input' => 'email',
-                'attributes' => [
-                    'placeholder' => 'E-mail'
-                ]
-            ]
-        )
+        <? // ADICIONANDO OS INPUTS DO FORMULARIO
 
-        @include(
-            // ENDEREÇO DA VIEW
-            'templates.formulario.password',
-            // ARRAY COM AS VARIAVEIS
-            [
-                'input' => 'password',
-                'attributes' => [
-                    'placeholder' => 'Senha'
-                ]
-            ]
-        )
+        // include(ENDEREÇO DA VIEW, ARRAY COM OS VALORES DE ATRIBUTO)?>
+        @include('templates.formulario.input',  [
+                                                    'input' => 'cpf', 
+                                                    'attributes' => [
+                                                                        'placeholder' => 'CPF'
+                                                                    ]
+                                                ])
+
+        @include('templates.formulario.input',  [
+                                                    'input' => 'name',
+                                                    'attributes' => [
+                                                                        'placeholder' => 'Nome'
+                                                                    ]
+                                                ])
+
+        @include('templates.formulario.input',  [
+                                                    'input' => 'phone',
+                                                    'attributes' => [
+                                                                        'placeholder' => 'Telefone'
+                                                                    ]
+                                                ])
         
-        @include(
-            // ENDEREÇO DA VIEW
-            'templates.formulario.submit',
-            // ARRAY COM AS VARIAVEIS
-            [
-                'input' => 'Cadastrar'
-            ]
-        )
+        @include('templates.formulario.input',  [
+                                                    'input' => 'email',
+                                                    'attributes' => [
+                                                                        'placeholder' => 'E-mail'
+                                                                    ]
+                                                ])
+
+        @include('templates.formulario.password',   [
+                                                        'input' => 'password',
+                                                        'attributes' => [
+                                                                            'placeholder' => 'Senha'
+                                                                        ]
+                                                    ])
+        
+        @include('templates.formulario.submit', [
+                                                    'input' => 'Cadastrar'
+                                                ])
 
     <!-- Definindo a FECHAMENTO do formulario -->
     {!! Form::close() !!}
@@ -134,18 +108,14 @@
                 <td>{{ $user->status }}</td>
                 <td>
                     <? // CRIANDO O BOTAO REMOVER ?>
-                    {!! Form::open(
-                        [
-                            'route' =>  [
-                                // ROTA PARA REMOCAO
-                                'user.destroy',
-                                // ID A SER REMOVIDO
-                                $user->id
-                            ],
-                            'method' => 'DELETE'
-                        ]
-                    ) !!}
+                    {!! Form::open( [
+                                        // ROTA PARA REMOÇAO E O ID A SER EXCLUIDO
+                                        'route' =>  ['user.destroy',$user->id],
+                                        'method' => 'DELETE'
+                                    ])!!}
+
                         {!!Form::submit('Remover')!!}
+                    
                     {!! Form::close() !!}
                 </td>
             </tr>

@@ -11,6 +11,7 @@ use App\Http\Requests\InstitutionCreateRequest;
 use App\Http\Requests\InstitutionUpdateRequest;
 use App\Repositories\InstitutionRepository;
 use App\Validators\InstitutionValidator;
+use App\Services\InstitutionService; /** */
 
 /**
  * Class InstitutionsController.
@@ -19,88 +20,48 @@ use App\Validators\InstitutionValidator;
  */
 class InstitutionsController extends Controller
 {
-    /**
-     * @var InstitutionRepository
-     */
     protected $repository;
-
-    /**
-     * @var InstitutionValidator
-     */
     protected $validator;
+    protected $service;
 
-    /**
-     * InstitutionsController constructor.
-     *
-     * @param InstitutionRepository $repository
-     * @param InstitutionValidator $validator
-     */
-    public function __construct(InstitutionRepository $repository, InstitutionValidator $validator)
+    public function __construct(InstitutionRepository $repository, InstitutionValidator $validator, InstitutionService $service)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->service = $service;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        
         $institutions = $this->repository->all();
 
-        if (request()->wantsJson())
-        {
-
-            return response()->json([
-                                        'data' => $institutions,
-                                    ]);
-        }
-
-        return view('institutions.index', compact('institutions'));
+        return view('institutions.index',   [
+                                                'institutions' => $institutions,
+                                            ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  InstitutionCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
+    // METODO QUE ENVIA OS DADOS PARA O CADASTRO
     public function store(InstitutionCreateRequest $request)
     {
-        try {
+        
+        // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
+        $request = $this->service->store($request->all());
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+        // RECEBENDO(OU NAO) OS DADOS DA INSTITUICAO CADASTRADA
+        $institution = $request['success'] ? $request['data'] : null;
 
-            $institution = $this->repository->create($request->all());
+        // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR NA TELA SE A INSTITUICAO FOI CADASTRADO OU NAO
+        // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
+        session()->flash('success', [
+                                        'success' => $request['success'],
+                                        'messages' => $request['messages'],
+                                    ]);
 
-            $response = [
-                            'message' => 'Institution created.',
-                            'data'    => $institution->toArray(),
-                        ];
-
-            if ($request->wantsJson())
-            {
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+        // RETORNANDO OS DADOS DA INSTITUICAO
+        return redirect()->route('institution.index');
     }
+    
 
     /**
      * Display the specified resource.

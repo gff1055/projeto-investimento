@@ -20,8 +20,7 @@ class CreateInstitutionsTable extends Migration
 											$table->string('name');
 
 											$table->timestamps();
-										}
-		);
+										});
 	}
 
 	public function down()

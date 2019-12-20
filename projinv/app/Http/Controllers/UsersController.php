@@ -44,8 +44,7 @@ class UsersController extends Controller
         // passando para a view um array com os dados dos usuarios
         return view('user.index',   [
                                         'users' => $users
-                                    ]
-        );
+                                    ]);
     }
 
 
@@ -59,23 +58,17 @@ class UsersController extends Controller
         $usuario = $request['success'] ? $request['data'] : null;
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI CADASTRADO OU NAO
-        session()->flash( // METODO QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW
-            // NOME DA SESSAO
-            'success',
-            // DADOS ARMAZENADOS NESSA SESSAO
-            [
-                'success' => $request['success'],
-                'messages' => $request['messages'],
-            ]
+        // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
+        session()->flash('success', [
+                                        'success' => $request['success'],
+                                        'messages' => $request['messages'],
+                                    ]
         );
 
         // RETORNANDO OS DADOS DO USUARIO
-        return view(
-            'user.index',
-            [
-                'usuario' => $usuario,
-            ]
-        );
+        return view('user.index',   [
+                                        'usuario' => $usuario,
+                                    ]);
     }
 
     /**
