@@ -13,11 +13,7 @@ use App\Repositories\InstitutionRepository;
 use App\Validators\InstitutionValidator;
 use App\Services\InstitutionService; /** */
 
-/**
- * Class InstitutionsController.
- *
- * @package namespace App\Http\Controllers;
- */
+
 class InstitutionsController extends Controller
 {
     protected $repository;
@@ -35,10 +31,11 @@ class InstitutionsController extends Controller
     {
         
         $institutions = $this->repository->all();
-
+        // PASSANDO AS VARIAVEIS PARA A VIEW VIA ARRAY
         return view('institutions.index',   [
                                                 'institutions' => $institutions,
-                                            ]);
+                                            ]
+        );
     }
 
     // METODO QUE ENVIA OS DADOS PARA O CADASTRO
@@ -47,7 +44,6 @@ class InstitutionsController extends Controller
         
         // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
         $request = $this->service->store($request->all());
-
         // RECEBENDO(OU NAO) OS DADOS DA INSTITUICAO CADASTRADA
         $institution = $request['success'] ? $request['data'] : null;
 
@@ -56,20 +52,14 @@ class InstitutionsController extends Controller
         session()->flash('success', [
                                         'success' => $request['success'],
                                         'messages' => $request['messages'],
-                                    ]);
+                                    ]
+        );
 
         // RETORNANDO OS DADOS DA INSTITUICAO
         return redirect()->route('institution.index');
     }
     
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $institution = $this->repository->find($id);
@@ -84,13 +74,7 @@ class InstitutionsController extends Controller
         return view('institutions.show', compact('institution'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function edit($id)
     {
         $institution = $this->repository->find($id);
@@ -98,16 +82,7 @@ class InstitutionsController extends Controller
         return view('institutions.edit', compact('institution'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  InstitutionUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
+
     public function update(InstitutionUpdateRequest $request, $id)
     {
         try {

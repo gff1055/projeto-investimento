@@ -22,16 +22,19 @@ Form::open( [
 
     // include(ENDEREÇO DA VIEW, ARRAY COM OS VALORES DE ATRIBUTO)?>
     @include('templates.formulario.input',  [
-                                                'label' => 'Nome',
+                                                'label' => 'Nome da Instituição',
                                                 'input' => 'name', 
                                                 'attributes' => [
                                                                     'placeholder' => 'Nome'
                                                                 ]
-                                            ])
+                                            ]
+    )
 
     @include('templates.formulario.submit', [
                                                 'input' => 'cadastrar'
-                                            ])
+                                            ]
+    )
+    
 {!! Form::close(); !!}
 
 
@@ -47,12 +50,14 @@ Form::open( [
     </thead>
 
     <tbody>
+        <!-- utilizando colecao de usuarios vindos do controller(user) -->
         @foreach ($institutions as $inst)
             <tr>
                 <td>{{ $inst->id }}</td>
                 <td>{{ $inst->name }}</td>
                 <td>
                     {!! 
+                    // FORMULARIO DE REMOCAO
                     Form::open( [
                                     'route' =>  [
                                                     'institution.destroy',

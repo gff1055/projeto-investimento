@@ -81,8 +81,7 @@ Route::resource(
 
 
 // CRIA ESTRUTURA (index, store, etc....)
-Route::resource(
-    'institution',
-    'InstitutionsController'
-);
+Route::resource('institution','InstitutionsController');
+
+Route::resource('group', 'GroupsController');
 
