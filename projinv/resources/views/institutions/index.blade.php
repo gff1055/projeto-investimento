@@ -16,8 +16,7 @@ Form::open( [
                 'route' => 'institution.store',
                 'method' => 'post',
                 'class' => 'form-padrao'
-            ]
-)!!}
+            ])!!}
     <? // ADICIONANDO OS INPUTS DO FORMULARIO
 
     // include(ENDEREÇO DA VIEW, ARRAY COM OS VALORES DE ATRIBUTO)?>
@@ -27,13 +26,11 @@ Form::open( [
                                                 'attributes' => [
                                                                     'placeholder' => 'Nome'
                                                                 ]
-                                            ]
-    )
+                                            ])
 
     @include('templates.formulario.submit', [
                                                 'input' => 'cadastrar'
-                                            ]
-    )
+                                            ])
     
 {!! Form::close(); !!}
 

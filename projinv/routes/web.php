@@ -69,19 +69,20 @@ Route::get(
 
 // DEFININDO UM GRUPO DE ROTAS(delete, update, etc...) PARA USERS(usersController)
 Route::resource(
-    // NOME DA ROTA
+    // Nome da rota
     'user',
-    // NOME DO CONTROLLER
+    // Nome do controller
     'UsersController'
-    // ARRAY DE DADOS(NOME DAS ROTAS)
+    // Array de dados (Nome das rotas)
     /*
     ..........
     */
 );
 
 
-// CRIA ESTRUTURA (index, store, etc....)
+// Cria estrutura (INDEX, STORE, ETC....) para as instituicoes
 Route::resource('institution','InstitutionsController');
 
+// Rota RESOURCE (rotas para INDEX, STORE, UPDATE, NEW, SHOW, CREATE....) para GROUPS
 Route::resource('group', 'GroupsController');
 

@@ -11,103 +11,54 @@ use App\Http\Requests\GroupCreateRequest;
 use App\Http\Requests\GroupUpdateRequest;
 use App\Repositories\GroupRepository;
 use App\Validators\GroupValidator;
+use App\Services\GroupService;
 
-/**
- * Class GroupsController.
- *
- * @package namespace App\Http\Controllers;
- */
 class GroupsController extends Controller
 {
-    /**
-     * @var GroupRepository
-     */
     protected $repository;
-
-    /**
-     * @var GroupValidator
-     */
     protected $validator;
+    protected $service;
 
-    /**
-     * GroupsController constructor.
-     *
-     * @param GroupRepository $repository
-     * @param GroupValidator $validator
-     */
-    public function __construct(GroupRepository $repository, GroupValidator $validator)
+    public function __construct(GroupRepository $repository, GroupValidator $validator, GroupService $service)
     {
         $this->repository = $repository;
         $this->validator  = $validator;
+        $this->service = $service;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        // Recebendo todos os grupos cadastrados
         $groups = $this->repository->all();
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $groups,
-            ]);
-        }
-
-        return view('groups.index', compact('groups'));
+        // Retornando os dados dos grupos cadastrados
+        return view('groups.index', [
+                                        'groups' => $groups,
+                                    ]
+        );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  GroupCreateRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
+    // Metodo para cadastro do grupo
     public function store(GroupCreateRequest $request)
     {
-        try {
+        // Recebendo a resposta do service a respeito da operação de cadastro dos dados
+        $request = $this->service->store($request->all());
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+        // Recebendo (ou nao) os dados do grupo cadastrado
+        $group = $request['success'] ? $request['data'] : null;
 
-            $group = $this->repository->create($request->all());
+        // Criando uma variavel de sessao para mostrar na tela se o grupo foi cadastrado ou nao
+        // Metodo (FLASH) que envia a session uma unica vez para a view. SUCCESS é o nome da variavel de sessao
+        session()->flash('success', [
+                                        'success' => $request['success'],
+                                        'messages' => $request['messages'],
+                                    ]
+        );
 
-            $response = [
-                'message' => 'Group created.',
-                'data'    => $group->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+        // Retoanando os dados do grupo
+        return redirect()->route('group.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $group = $this->repository->find($id);
@@ -122,13 +73,6 @@ class GroupsController extends Controller
         return view('groups.show', compact('group'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $group = $this->repository->find($id);
@@ -136,16 +80,6 @@ class GroupsController extends Controller
         return view('groups.edit', compact('group'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  GroupUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
     public function update(GroupUpdateRequest $request, $id)
     {
         try {
@@ -179,26 +113,11 @@ class GroupsController extends Controller
         }
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Metodo para excluir um grupo
     public function destroy($id)
     {
         $deleted = $this->repository->delete($id);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Group deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'Group deleted.');
+        return redirect()->route("group.index");
     }
 }

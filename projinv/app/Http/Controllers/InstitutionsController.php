@@ -128,14 +128,6 @@ class InstitutionsController extends Controller
     {
         $deleted = $this->repository->delete($id);
 
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'message' => 'Institution deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
-
-        return redirect()->back()->with('message', 'Institution deleted.');
+        return redirect()->route("institution.index");
     }
 }
