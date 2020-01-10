@@ -31,8 +31,9 @@ class InstitutionsController extends Controller
     {
         
         $institutions = $this->repository->all();
+        
         // PASSANDO AS VARIAVEIS PARA A VIEW VIA ARRAY
-        return view('institutions.index',   [
+        return view('institutions.index',   [   
                                                 'institutions' => $institutions,
                                             ]
         );
@@ -42,10 +43,8 @@ class InstitutionsController extends Controller
     public function store(InstitutionCreateRequest $request)
     {
         
-        // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
-        $request = $this->service->store($request->all());
-        // RECEBENDO(OU NAO) OS DADOS DA INSTITUICAO CADASTRADA
-        $institution = $request['success'] ? $request['data'] : null;
+        $request = $this->service->store($request->all());  // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
+        $institution = $request['success'] ? $request['data'] : null;   // RECEBENDO(OU NAO) OS DADOS DA INSTITUICAO CADASTRADA
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR NA TELA SE A INSTITUICAO FOI CADASTRADO OU NAO
         // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
@@ -55,8 +54,7 @@ class InstitutionsController extends Controller
                                     ]
         );
 
-        // RETORNANDO OS DADOS DA INSTITUICAO
-        return redirect()->route('institution.index');
+        return redirect()->route('institution.index');  // RETORNANDO OS DADOS DA INSTITUICAO
     }
     
 

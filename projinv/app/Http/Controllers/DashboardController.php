@@ -26,49 +26,42 @@ class DashboardController extends Controller
 
     public function index()
     {
-        // Retornando a view Dashboard da pasta View
-        return view('user.dashboard');
+        return view('user.dashboard');  // Retornando a view Dashboard da pasta View
     }
+
 
     /** metodo de autenticacao. Ela recebe o request (dados enviados inseridos pelo usuario)*/
     public function auth(Request $request)
     {
         /* Dados enviados pelo usuario */
-        $data = [
+        $data = [   
                     'email' => $request->get('username'),
                     'password' => $request->get('password')
                 ];
 
         try
         {
-
             /* Testando se a criptografia esta ativada*/
-            if(env('PASSWORD_HASH'))
-                /* Fazendo uma tentativa de autenticação */
-                Auth::attempt($data, false); 
+            if(env('PASSWORD_HASH'))    
+                Auth::attempt($data, false);    /* Fazendo uma tentativa de autenticação */
             
             else
             {
-                /* buscando o email inserido e atribui o username usuario se existir*/
-                $user = $this->repository->findWhere(['email' => $request->get('username')])->first();
+                $user = $this->repository->findWhere(['email' => $request->get('username')])->first();  /* buscando o email inserido e atribui o username usuario se existir*/
                 
                 /* Testa se o usuario existe */
                 if(!$user)
-                    // Lançando exceção O EMAIL NAO EXISTE
-                    throw new Exception("E-mail informado é invalido....");
+                    throw new Exception("E-mail informado é invalido...."); // Lançando exceção O EMAIL NAO EXISTE
 
                 // Verificando se a senha está correta
                 if($user->password != $request->get('password'))
-                    // Lançando uma exceção
-                    throw new Exception("A senha informada é invalida...");
+                    throw new Exception("A senha informada é invalida..."); // Lançando uma exceção
 
-                /* Fazendo autenticacao do usuario a partir do proprio objeto */
-                Auth::login($user);
+                Auth::login($user); /* Fazendo autenticacao do usuario a partir do proprio objeto */
                 
             }
 
-            /* Redirecionamento para a oagina inicial do sistema (Dashboard) */
-            return redirect()->route('user.dashboard');
+            return redirect()->route('user.dashboard'); /* Redirecionamento para a oagina inicial do sistema (Dashboard) */
 
         }
         catch(Exception $e)

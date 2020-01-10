@@ -11,41 +11,36 @@ Form::open(	[
 				'route' => 'group.store',
 				'method' => 'post',
 				'class' => 'form-padrao'
-			]
-)
+])
 !!}
 
 	@include('templates.formulario.input',	[
+												// Atributos usados no template
 												'label' => "Nome do Grupo",
 												'input' => 'name',
-												'attributes' =>	[
-																	'placeholder' => "Nome do Grupo"
-																]
-											]
-	)
+												'attributes' =>	['placeholder' => "Nome do Grupo"]
+	])
 
-	@include('templates.formulario.input',	[
+	@include('templates.formulario.select',	[
+												// Atributos usados no template
 												'label' => "User",
-												'input' => 'user_id',
-												'attributes' => 	[
-																		'placeholder' => "User"
-																	]
-											]
-	)
+												'select' => 'user_id',
+												'data' => $user_list,	// Dados para <option> de <select>
+												'attributes' => ['placeholder' => "User"]
+	])
 	
-	@include('templates.formulario.input',	[
+	@include('templates.formulario.select',	[
+												// Atributos usados no template
 												'label' => "Institution",
-												'input' => 'institution_id',
-												'attributes' => 	[
-																		'placeholder' => "Instituicao"
-																	]
-											]
-	)
+												'select' => 'institution_id',
+												'data' => $institution_list, // Dados para <option> de <select>
+												'attributes' => ['placeholder' => "Instituicao"	]
+	])
 
 	@include('templates.formulario.submit', [
+												// Atributos usados no template
                                                 'input' => 'cadastrar'
-											]
-	)
+	])
 
 
 {!! Form::close() !!}
