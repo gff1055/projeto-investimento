@@ -35,13 +35,13 @@ class GroupsController extends Controller
     public function index()
     {
         $groups = $this->repository->all(); // Recebendo todos os grupos cadastrados
-        $user_list = $this->userRepository->selectBoxList();    // Rebendo a lista de todos os usuarios
-        $institution_list = $this->institutionRepository->selectBoxList();  // Rebendo a lista de todas as instituicoes
+        $user_list = $this->userRepository->selectBoxList();    // Recebendo a lista de todos os usuarios
+        $institution_list = $this->institutionRepository->selectBoxList();  // Recebendo a lista de todas as instituicoes
         
-        return view('groups.index', [   // Retornando os dados dos grupos cadastrados
-                                        'groups' => $groups,
-                                        'user_list' => $user_list,
-                                        'institution_list' => $institution_list,
+        return view('groups.index', [   // Retornando os dados ...
+                                        'groups' => $groups,    // ... dos grupos
+                                        'user_list' => $user_list,  // ... dos usuarios
+                                        'institution_list' => $institution_list,    // ... das instituicoes
         ]);
     }
 

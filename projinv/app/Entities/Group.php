@@ -19,16 +19,14 @@ class Group extends Model implements Transformable
     // UM GRUPO TEM UMA PESSOA RESPONSAVEL
     public function owner()
     {
-        // DEFININDO QUE A ENTIDADE group PERTENCE A UM user ATRAVES DO METODO (owner)
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');    // DEFININDO QUE A ENTIDADE group PERTENCE A UM user ATRAVES DO METODO (owner)
     }
 
 
     // UM GRUPO PERTENCE A UMA INSTITUIÇÃO
     public function institution()
     {
-        // DEFININDO QUE A ENTIDADE group PERTENCE A UM institution ATRAVES DO METODO (owner)
-        return $this->belongsTo(Institution::class);
+        return $this->belongsTo(Institution::class);    // DEFININDO QUE A ENTIDADE group PERTENCE A UM institution ATRAVES DO METODO (owner)
     }
 
 }

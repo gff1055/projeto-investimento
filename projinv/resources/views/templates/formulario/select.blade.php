@@ -2,6 +2,6 @@
 <label class="{{ $class ?? null }}">
 	<span>{{ $label ?? $select ?? "ERRO" }}</span>
 	
-	<? //  {!! Form::select('NOME DO SELECT', ['VALUE' => 'DESCRICAO']) !!}?>
+	<? //Cria um select (necessario passar nome e dados) ?>	
 	{!! Form::select($select, $data ?? []) !!}
 </label>
