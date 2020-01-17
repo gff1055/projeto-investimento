@@ -61,15 +61,7 @@ class InstitutionsController extends Controller
     public function show($id)
     {
         $institution = $this->repository->find($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $institution,
-            ]);
-        }
-
-        return view('institutions.show', compact('institution'));
+        return view("institutions.show", ['institution' => $institution]);
     }
 
     

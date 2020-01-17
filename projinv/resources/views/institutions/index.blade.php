@@ -65,6 +65,7 @@ Form::open( [
                     )
                     !!}
                     {!! Form::submit("Remover") !!}
+                    <a href="{{ route('institution.show', $inst->id) }}">Detalhes</a>
                     {!! Form::close() !!}
                 </td>
             </tr>
