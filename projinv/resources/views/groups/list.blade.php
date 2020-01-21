@@ -1,3 +1,6 @@
+
+<? // Arquivo para listagem de dados ?>
+
 <table class = "default-table">
 	<thead>
 		<tr>

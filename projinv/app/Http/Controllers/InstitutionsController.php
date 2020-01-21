@@ -58,17 +58,17 @@ class InstitutionsController extends Controller
     }
     
 
+    // Metodo para mostrar os detalhes da instituicao
     public function show($id)
     {
-        $institution = $this->repository->find($id);
-        return view("institutions.show", ['institution' => $institution]);
+        $institution = $this->repository->find($id);    // Variavel INSTITUTION recebe a chave primaria da tabela
+        return view("institutions.show", ['institution' => $institution]);  // Retorna o valor de INSTITUTION para a view
     }
 
     
     public function edit($id)
     {
         $institution = $this->repository->find($id);
-
         return view('institutions.edit', compact('institution'));
     }
 
