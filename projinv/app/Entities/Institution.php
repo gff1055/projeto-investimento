@@ -17,7 +17,7 @@ class Institution extends Model implements Transformable
     // Retorna os grupos de uma instituição
     public function groups()
     {
-        return $this->hasMany(Group::class);
+        return $this->hasMany(Group::class);    // Retorna os grupos que estao relacionados com a instituicao
     }
 
 }
