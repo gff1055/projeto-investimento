@@ -62,13 +62,10 @@ class UsersController extends Controller
         session()->flash('success', [
                                         'success' => $request['success'],
                                         'messages' => $request['messages'],
-                                    ]
-        );
+        ]);
 
         // RETORNANDO OS DADOS DO USUARIO
-        return view('user.index',   [
-                                        'usuario' => $usuario,
-                                    ]);
+       return redirect()->route('user.index');
     }
 
     /**
