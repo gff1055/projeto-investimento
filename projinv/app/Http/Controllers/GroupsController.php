@@ -61,22 +61,12 @@ class GroupsController extends Controller
         return redirect()->route('group.index');    // Retoanando os dados do grupo
     }
 
-    public function show($id)
-    {
+    public function show($id){
         $group = $this->repository->find($id);
-
-        if (request()->wantsJson()) {
-
-            return response()->json([
-                'data' => $group,
-            ]);
-        }
-
-        return view('groups.show', compact('group'));
+        return view('groups.show',  ['group' => $group]);
     }
 
-    public function edit($id)
-    {
+    public function edit($id){
         $group = $this->repository->find($id);
 
         return view('groups.edit', compact('group'));
@@ -115,8 +105,7 @@ class GroupsController extends Controller
         }
     }
 
-    public function destroy($id)    // Metodo para excluir um grupo
-    {
+    public function destroy($id){    // Metodo para excluir um grupo
         $deleted = $this->repository->delete($id);
 
         return redirect()->route("group.index");

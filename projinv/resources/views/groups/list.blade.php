@@ -25,6 +25,7 @@
 					]) !!}
 						{!! Form::submit('Remover') !!}
 					{!! Form::close() !!}
+					<a href="{{ route('group.show', $group->id) }}">Detalhes</a>
 				</td>
 			</tr>
 		@endforeach
