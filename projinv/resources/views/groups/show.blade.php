@@ -10,9 +10,14 @@
 </header>
 
 {!! Form::open(	[
+					'route' =>	[
+									'group.user.store',
+									$group->id
+								],
 					'method' => 'post',
 					'class' => 'form-padrao'
-]) !!}
+				]
+) !!}
 
 	@include('templates.formulario.select',	[
 												'label' => "Usuário",
@@ -22,7 +27,7 @@
 											]
 	)
 
-	@include('templates.formulario.submit',	['input' => 'Relacionar ao grupo' . $group->name])
+	@include('templates.formulario.submit',	['input' => 'Relacionar ao grupo ' . $group->name])
 	
 {!! Form::close() !!}
 

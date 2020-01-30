@@ -86,3 +86,9 @@ Route::resource('institution','InstitutionsController');
 // Rota RESOURCE (rotas para INDEX, STORE, UPDATE, NEW, SHOW, CREATE....) para GROUPS
 Route::resource('group', 'GroupsController');
 
+Route::post('group/{group}/user',    [
+                                            'as' => 'group.user.store',
+                                            'uses' => 'GroupsController@userStore'
+                                        ]
+);
+
