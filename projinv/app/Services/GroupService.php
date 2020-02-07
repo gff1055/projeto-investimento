@@ -69,6 +69,48 @@ class GroupService{
 			}
 		}
 	}
+
+	public function userStore($group_id, $data){
+		try{
+
+			// Retornando os dados da resposta
+			return [
+				'success' 	=> true,
+				'messages' 	=> "Usuario relacionado com sucesso",
+				'data' 		=> null,
+			];
+		}
+
+		// Tratando erros em caso gerem excecoes
+		catch(Exception $e){
+			switch(get_class($e)){
+				case QueryException::class:
+					return [
+						'success' => false,
+						'messages' => $e->getMessage()
+					];
+				
+				case ValidatorException::class:
+					return [
+						'success' =>false,
+						'messages' => $e->getMessageBag()
+					];
+
+				case Exception::class:
+					return [
+						'success' => false,
+						'messages' => $e->getMessage()
+					];
+
+				default:
+					return [
+						'success' => false,
+						'message' => $e->getMessage()
+					];						
+			}
+		}
+	}
+
 }
 
 

@@ -78,7 +78,7 @@ class GroupsController extends Controller{
             'messages' => $request['messages'],
         ]);
 
-        return redirect()->route('group.index', [$group_id]);    // Retoanando os dados do grupo
+        return redirect()->route('group.show', [$group_id]);    // Retoanando os dados do grupo
     }
 
 
