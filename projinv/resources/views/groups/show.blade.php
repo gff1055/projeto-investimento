@@ -9,25 +9,27 @@
 	<h2>Nome do responsavel: {{ $group->owner->name }}</h2>
 </header>
 
-{!! Form::open(	[
-					'route' =>	[
-									'group.user.store',
-									$group->id
-								],
-					'method' => 'post',
-					'class' => 'form-padrao'
-				]
-) !!}
+{!! Form::open([
+	'route' => [
+		'group.user.store',
+		$group->id
+	],
+	'method' => 'post',
+	'class' => 'form-padrao'
+]) !!}
 
-	@include('templates.formulario.select',	[
-												'label' => "Usuário",
-												'select' => 'user_id',
-												'data' => $user_list,
-												'attributes' => ['placeholder' => "Usuário"]
-											]
-	)
+	@include('templates.formulario.select', [
+		'label' => "Usuário",
+		'select' => 'user_id',
+		'data' => $user_list,
+		'attributes' => [
+			'placeholder' => "Usuário"
+		]
+	])
 
-	@include('templates.formulario.submit',	['input' => 'Relacionar ao grupo ' . $group->name])
+	@include('templates.formulario.submit', [
+		'input' => 'Relacionar ao grupo ' . $group->name
+	])
 	
 {!! Form::close() !!}
 

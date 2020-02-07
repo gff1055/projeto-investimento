@@ -28,19 +28,19 @@ class User extends Authenticatable{
     }
 
 
-    /* Mutator para a formatação do CPF */
+    /* Acessor para a formatação do CPF */
     public function getFormattedCpfAttribute(){
         $cpf = $this->attributes['cpf'];    // recebendo o CPF
         return substr($cpf, 0, 3).'.'.substr($cpf, 3, 3).'.'.substr($cpf, 7, 3).'-'.substr($cpf, -2);   // retornando o cpf formatado
     }
 
-    /* Mutator para a formatação do telefone */
+    /* Acessor para a formatação do telefone */
     public function getFormattedPhoneAttribute(){
         $phone = $this->attributes['phone'];    // recebendo o telefone
         return "(" . substr($phone, 0, 2) . ") " . substr($phone, 2, 4) . "-" . substr($phone, -4); // retornando o telefone formatado
     }
 
-    // Mutator para a formatacao da data
+    // Acessor para a formatacao da data
     public function getFormattedBirthAttribute(){
         $birth = explode("-", $this->attributes['birth']);  // Desmembrando a string usando o '-' como delimitador
      

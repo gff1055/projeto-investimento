@@ -11,25 +11,21 @@ use Exception;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 
-class GroupService
-{
+class GroupService{
 	private $repository;
 	private $validator;
 
 
 	// funcao cnstrutora
-	public function __construct(GroupRepository $repository, GroupValidator $validator)
-	{
+	public function __construct(GroupRepository $repository, GroupValidator $validator){
 		$this->repository = $repository;
 		$this->validator = $validator;
 	}
 
 
 	// Metodo para cadastro de dados
-	public function store(array $data) : array
-	{
-		try
-		{
+	public function store(array $data) : array{
+		try{
 			// Efetuando a validacao dos dados passados
 			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
 
@@ -37,40 +33,38 @@ class GroupService
 			$group = $this->repository->create($data);
 
 			// Retornando os dados da resposta
-			return	[
-						'success' => true,
-						'messages' => "Grupo Cadastrado",
-						'data' => $group,
+			return [
+				'success' => true,
+				'messages' => "Grupo Cadastrado",
+				'data' => $group,
 			];
 		}
 
 		// Tratando erros em caso gerem excecoes
-		catch(Exception $e)
-		{
-			switch(get_class($e))
-			{
+		catch(Exception $e){
+			switch(get_class($e)){
 				case QueryException::class:
-					return	[
-								'success' => false,
-								'messages' => $e->getMessage()
+					return [
+						'success' => false,
+						'messages' => $e->getMessage()
 					];
 				
 				case ValidatorException::class:
-					return	[
-								'success' =>false,
-								'messages' => $e->getMessageBag()
+					return [
+						'success' =>false,
+						'messages' => $e->getMessageBag()
 					];
 
 				case Exception::class:
-					return 	[
-								'success' => false,
-								'messages' => $e->getMessage()
+					return [
+						'success' => false,
+						'messages' => $e->getMessage()
 					];
 
 				default:
-					return	[
-								'success' => false,
-								'message' => $e->getMessage()
+					return [
+						'success' => false,
+						'message' => $e->getMessage()
 					];						
 			}
 		}

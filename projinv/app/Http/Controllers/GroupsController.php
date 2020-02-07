@@ -22,6 +22,8 @@ class GroupsController extends Controller{
     protected $validator;
     protected $service;
     
+
+
     public function __construct(GroupRepository $repository, GroupValidator $validator, GroupService $service, InstitutionRepository $institutionRepository, UserRepository $userRepository){
         $this->userRepository = $userRepository;
         $this->institutionRepository = $institutionRepository;
@@ -30,18 +32,22 @@ class GroupsController extends Controller{
         $this->service = $service;
     }
 
+
+
     public function index(){
         $groups = $this->repository->all(); // Recebendo todos os grupos cadastrados
         $user_list = $this->userRepository->selectBoxList();    // Recebendo a lista de todos os usuarios
         $institution_list = $this->institutionRepository->selectBoxList();  // Recebendo a lista de todas as instituicoes
         
-        return view('groups.index', [   // Retornando os dados ...
-                                        'groups' => $groups,    // ... dos grupos
-                                        'user_list' => $user_list,  // ... dos usuarios
-                                        'institution_list' => $institution_list,    // ... das instituicoes
-                                    ]
-        );
+        return view('groups.index', [
+            // Retornando os dados ...
+            'groups' => $groups,    // ... dos grupos
+            'user_list' => $user_list,  // ... dos usuarios
+            'institution_list' => $institution_list,    // ... das instituicoes
+        ]);
     }
+
+
 
     // Metodo para cadastro do grupo
     public function store(GroupCreateRequest $request){
@@ -51,29 +57,53 @@ class GroupsController extends Controller{
 
         // Criando uma variavel de sessao para mostrar na tela se o grupo foi cadastrado ou nao
         // Metodo (FLASH) que envia a session uma unica vez para a view. SUCCESS é o nome da variavel de sessao
-        session()->flash('success', [   
-                                        'success' => $request['success'],
-                                        'messages' => $request['messages'],
+        session()->flash('success', [
+            'success' => $request['success'],
+            'messages' => $request['messages'],
         ]);
 
         return redirect()->route('group.index');    // Retoanando os dados do grupo
     }
 
-    public function show($id){
-        $group = $this->repository->find($id);
-        $user_list = $this->userRepository->selectBoxList();
-        return view('groups.show',  [
-                                        'group' => $group,
-                                        'user_list' => $user_list
-                                    ]
-        );
+
+
+    public function userStore(Request $request, $group_id){
+
+        $request = $this->service->userStore($group_id, $request->all());  // Recebendo a resposta do service a respeito da operação de cadastro dos dados
+        
+        // Criando uma variavel de sessao para mostrar na tela se o grupo foi cadastrado ou nao
+        // Metodo (FLASH) que envia a session uma unica vez para a view. SUCCESS é o nome da variavel de sessao
+        session()->flash('success', [
+            'success' => $request['success'],
+            'messages' => $request['messages'],
+        ]);
+
+        return redirect()->route('group.index', [$group_id]);    // Retoanando os dados do grupo
     }
+
+
+
+    // Metodo para mostrar os dados de um grupo
+    public function show($id){
+        $group = $this->repository->find($id);  // Buscando o registro do grupo(id) no banco
+        $user_list = $this->userRepository->selectBoxList();    // Recebendo todos os usuarios
+
+        // Retorna os dados do grupo
+        return view('groups.show',[
+            'group' => $group,  // Grupo selecionado
+            'user_list' => $user_list   // Lista de usuarios
+        ]);
+    }
+
+
 
     public function edit($id){
         $group = $this->repository->find($id);
 
         return view('groups.edit', compact('group'));
     }
+
+
 
     public function update(GroupUpdateRequest $request, $id){
         try {
@@ -106,6 +136,8 @@ class GroupsController extends Controller{
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
     }
+
+
 
     public function destroy($id){    // Metodo para excluir um grupo
         $deleted = $this->repository->delete($id);

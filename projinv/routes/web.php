@@ -12,20 +12,14 @@
 */
 
 // DEFINICAO DA ROTA RAIZ (classe ROUTE)
-Route::get(
-    '/',
-    [
+Route::get('/', [
         'uses'  =>'Controller@homepage'
-    ]
-);
+]);
 
 
-Route::get(
-    '/cadastro',
-    [
-        'uses'  =>'Controller@cadastrar'
-    ]
-);
+Route::get('/cadastro',[
+    'uses'  =>'Controller@cadastrar'
+]);
 
 
 
@@ -33,39 +27,26 @@ Route::get(
 Rotas para a autenticacao do usuario
 */
 
-Route::get(
-    '/login',
-    [
+Route::get('/login', [
         'uses'  =>'Controller@fazerLogin'
+]);
+
+Route::post('/login', [
+        'as'    =>'user.login', //DANDO NOME PARA A ROTA
+        'uses'  =>'DashboardController@auth'    // METODO QUE FAZ A AUTENTICACAO
     ]
 );
 
-Route::post(
-    '/login',
-    [
-        //DANDO NOME PARA A ROTA
-        'as'    =>'user.login',
-        // METODO QUE FAZ A AUTENTICACAO
-        'uses'  =>'DashboardController@auth'
-    ]
-);
-
-Route::get(
-    '/dashboard',
-    [
+Route::get('/dashboard', [
         // NOME DADO PARA A ROTA
         'as'    =>'user.dashboard',
         'uses'  =>'DashboardController@index'
-    ]
-);
+]);
 
-Route::get(
-    '/user',
-    [
-        'as'    => 'user.index',
-        'uses' => 'UsersController@index'
-    ]
-);
+Route::get('/user', [
+    'as'    => 'user.index',
+    'uses' => 'UsersController@index'
+]);
 
 // DEFININDO UM GRUPO DE ROTAS(delete, update, etc...) PARA USERS(usersController)
 Route::resource(
@@ -86,9 +67,9 @@ Route::resource('institution','InstitutionsController');
 // Rota RESOURCE (rotas para INDEX, STORE, UPDATE, NEW, SHOW, CREATE....) para GROUPS
 Route::resource('group', 'GroupsController');
 
-Route::post('group/{group}/user',    [
-                                            'as' => 'group.user.store',
-                                            'uses' => 'GroupsController@userStore'
-                                        ]
-);
+
+Route::post('group/{group}/user', [
+    'as' => 'group.user.store',
+    'uses' => 'GroupsController@userStore'
+]);
 

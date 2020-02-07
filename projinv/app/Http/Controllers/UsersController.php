@@ -38,34 +38,28 @@ class UsersController extends Controller
     
     public function index()
     {
-        // atribuindo uma colecao de todos(all) os usuarios
-        $users = $this->repository->all();
+        $users = $this->repository->all();  // atribuindo uma colecao de todos(all) os usuarios
 
         // passando para a view um array com os dados dos usuarios
-        return view('user.index',   [
-                                        'users' => $users
-                                    ]);
+        return view('user.index',[
+            'users' => $users
+        ]);
     }
 
 
     // METODO QUE ENVIA OS DADOS PARA O CADASTRO
     public function store(UserCreateRequest $request){
 
-        // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
-        $request = $this->service->store($request->all());
-
-        // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
-        $usuario = $request['success'] ? $request['data'] : null;
+        $request = $this->service->store($request->all());  // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
+        $usuario = $request['success'] ? $request['data'] : null;   // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI CADASTRADO OU NAO
-        // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
-        session()->flash('success', [
-                                        'success' => $request['success'],
-                                        'messages' => $request['messages'],
+        session()->flash('success', [   // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
+            'success' => $request['success'],
+            'messages' => $request['messages'],
         ]);
 
-        // RETORNANDO OS DADOS DO USUARIO
-       return redirect()->route('user.index');
+       return redirect()->route('user.index');  // redireciona o usuario para a rota 'user.index'
     }
 
     /**
@@ -156,21 +150,17 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        // RECEBENDO A RESPOSTA DO SERVICE SOBRE A REMOÇÃO DO ID SELECIONADO
-        $request = $this->service->destroy($id);
+        $request = $this->service->destroy($id);    // RECEBENDO A RESPOSTA DO SERVICE SOBRE A REMOÇÃO DO ID SELECIONADO
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI EXCLUIDO OU NAO
-        session()->flash( // METODO QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW
-            // NOME DA SESSAO
-            'success',
-            // DADOS ARMAZENADOS NESSA SESSAO
-            [
+        session()->flash(   // METODO QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW
+            'success',  // NOME DA SESSAO
+            [   // DADOS ARMAZENADOS NESSA SESSAO
                 'success' => $request['success'],
                 'messages' => $request['messages'],
             ]
         );
 
-        // MANDA O USUARIO PARA A ROTA APOS A REMOÇAO
-        return redirect()->route('user.index');
+        return redirect()->route('user.index'); // MANDA O USUARIO PARA A ROTA APOS A REMOÇAO
     }
 }

@@ -34,10 +34,10 @@ class DashboardController extends Controller
     public function auth(Request $request)
     {
         /* Dados enviados pelo usuario */
-        $data = [   
-                    'email' => $request->get('username'),
-                    'password' => $request->get('password')
-                ];
+        $data = [
+            'email' => $request->get('username'),
+            'password' => $request->get('password')
+        ];
 
         try
         {
@@ -45,8 +45,7 @@ class DashboardController extends Controller
             if(env('PASSWORD_HASH'))    
                 Auth::attempt($data, false);    /* Fazendo uma tentativa de autenticação */
             
-            else
-            {
+            else{
                 $user = $this->repository->findWhere(['email' => $request->get('username')])->first();  /* buscando o email inserido e atribui o username usuario se existir*/
                 
                 /* Testa se o usuario existe */
@@ -64,8 +63,7 @@ class DashboardController extends Controller
             return redirect()->route('user.dashboard'); /* Redirecionamento para a oagina inicial do sistema (Dashboard) */
 
         }
-        catch(Exception $e)
-        {
+        catch(Exception $e){
             return $e->getMessage();
         }
 

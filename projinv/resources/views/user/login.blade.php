@@ -19,11 +19,10 @@
 
             <!-- Abrindo o formulario -->
             {!! 
-            Form::open( [
-                            'route' => 'user.login',
-                            'method' => 'post'
-                        ]
-            )
+            Form::open([
+                'route' => 'user.login',
+                'method' => 'post'
+            ])
             !!}
 
                 <p>Acesse o sistema</p>

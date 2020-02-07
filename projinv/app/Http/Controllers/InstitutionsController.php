@@ -33,10 +33,9 @@ class InstitutionsController extends Controller
         $institutions = $this->repository->all();
         
         // PASSANDO AS VARIAVEIS PARA A VIEW VIA ARRAY
-        return view('institutions.index',   [   
-                                                'institutions' => $institutions,
-                                            ]
-        );
+        return view('institutions.index', [
+            'institutions' => $institutions,
+        ]);
     }
 
     // METODO QUE ENVIA OS DADOS PARA O CADASTRO
@@ -49,10 +48,9 @@ class InstitutionsController extends Controller
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR NA TELA SE A INSTITUICAO FOI CADASTRADO OU NAO
         // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
         session()->flash('success', [
-                                        'success' => $request['success'],
-                                        'messages' => $request['messages'],
-                                    ]
-        );
+            'success' => $request['success'],
+            'messages' => $request['messages'],
+        ]);
 
         return redirect()->route('institution.index');  // RETORNANDO OS DADOS DA INSTITUICAO
     }

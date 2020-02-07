@@ -12,25 +12,25 @@
 @endif
 
 {!!
-Form::open( [
-                'route' => 'institution.store',
-                'method' => 'post',
-                'class' => 'form-padrao'
-            ])!!}
+Form::open([
+    'route' => 'institution.store',
+    'method' => 'post',
+    'class' => 'form-padrao'
+])!!}
     <? // ADICIONANDO OS INPUTS DO FORMULARIO
 
     // include(ENDEREÇO DA VIEW, ARRAY COM OS VALORES DE ATRIBUTO)?>
-    @include('templates.formulario.input',  [
-                                                'label' => 'Nome da Instituição',
-                                                'input' => 'name', 
-                                                'attributes' => [
-                                                                    'placeholder' => 'Nome'
-                                                                ]
-                                            ])
+    @include('templates.formulario.input', [
+        'label' => 'Nome da Instituição',
+        'input' => 'name',
+        'attributes' => [
+            'placeholder' => 'Nome'
+        ]
+    ])
 
     @include('templates.formulario.submit', [
-                                                'input' => 'cadastrar'
-                                            ])
+        'input' => 'cadastrar'
+    ])
     
 {!! Form::close(); !!}
 
@@ -55,15 +55,13 @@ Form::open( [
                 <td>
                     {!! 
                     // FORMULARIO DE REMOCAO
-                    Form::open( [
-                                    'route' =>  [
-                                                    'institution.destroy',
-                                                    $inst->id
-                                                ],
-                                    'method' => 'delete'
-                                ]
-                    )
-                    !!}
+                    Form::open([
+                        'route' => [
+                            'institution.destroy',
+                            $inst->id
+                        ],
+                        'method' => 'delete'
+                    ])!!}
                     {!! Form::submit("Remover") !!}
                     <? // Link que mostra os detalhes da instituicao ?>
                     <a href="{{ route('institution.show', $inst->id) }}">Detalhes</a>

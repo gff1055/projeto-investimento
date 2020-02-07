@@ -21,45 +21,44 @@
     @endif
 
     <!-- Definindo a abertura do formulario -->
-    {!! Form::open( [
-                        // ROTA QUE O FORMULARIO VAI ACIONAR AO SER ENVIADO
-                        'route' => 'user.store',
-                        //METODO DE ENVIO
-                        'method' => 'post',
-                        // CLASSE DOR FORMULARIO
-                        'class' => 'form-padrao'
+    {!! Form::open([
+        'route' => 'user.store', // ROTA QUE O FORMULARIO VAI ACIONAR AO SER ENVIADO
+        'method' => 'post', //METODO DE ENVIO
+        'class' => 'form-padrao'    // CLASSE DOR FORMULARIO
     ])
     !!}
         
         <? // ADICIONANDO OS INPUTS DO FORMULARIO
 
         // include(ENDEREÇO DA VIEW, ARRAY COM OS VALORES DE ATRIBUTO)?>
-        @include('templates.formulario.input',  [
-                                                    'input' => 'cpf', 
-                                                    'attributes' => ['placeholder' => 'CPF']
+        @include('templates.formulario.input', [
+            'input' => 'cpf',
+            'attributes' => ['placeholder' => 'CPF']
         ])
 
-        @include('templates.formulario.input',  [
-                                                    'input' => 'name',
-                                                    'attributes' => ['placeholder' => 'Nome']
+        @include('templates.formulario.input', [
+            'input' => 'name',
+            'attributes' => ['placeholder' => 'Nome']
         ])
 
-        @include('templates.formulario.input',  [
-                                                    'input' => 'phone',
-                                                    'attributes' => ['placeholder' => 'Telefone']
+        @include('templates.formulario.input', [
+            'input' => 'phone',
+            'attributes' => ['placeholder' => 'Telefone']
         ])
         
-        @include('templates.formulario.input',  [
-                                                    'input' => 'email',
-                                                    'attributes' => ['placeholder' => 'E-mail']
+        @include('templates.formulario.input', [
+            'input' => 'email',
+            'attributes' => ['placeholder' => 'E-mail']
         ])
 
-        @include('templates.formulario.password',   [
-                                                        'input' => 'password',
-                                                        'attributes' => ['placeholder' => 'Senha']
+        @include('templates.formulario.password', [
+            'input' => 'password',
+            'attributes' => ['placeholder' => 'Senha']
         ])
         
-        @include('templates.formulario.submit', ['input' => 'Cadastrar'])
+        @include('templates.formulario.submit', [
+            'input' => 'Cadastrar'
+        ])
 
     <!-- Definindo a FECHAMENTO do formulario -->
     {!! Form::close() !!}
@@ -96,11 +95,14 @@
                 <td>{{ $user->permission }}</td>
                 <td>
                     <? // CRIANDO O BOTAO REMOVER ?>
-                    {!! Form::open( [
-                                        // ROTA PARA REMOÇAO E O ID A SER EXCLUIDO
-                                        'route' =>  ['user.destroy',$user->id],
-                                        'method' => 'DELETE'
-                                    ])!!}
+                    {!! Form::open([
+                        // ROTA PARA REMOÇAO E O ID A SER EXCLUIDO
+                        'route' => [
+                            'user.destroy',
+                            $user->id
+                        ],
+                        'method' => 'DELETE'
+                    ])!!}
 
                         {!!Form::submit('Remover')!!}
                     

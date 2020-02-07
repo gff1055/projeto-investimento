@@ -19,9 +19,11 @@
 				<td>{{ $group->institution->name }}</td>
 				<td>{{ $group->owner->name }}</td>
 				<td>
-					{!! Form::open(	[
-										'route' => ['group.destroy', $group->id],
-										'method' => 'DELETE'
+					{!! Form::open([
+						'route' => [
+							'group.destroy', $group->id
+						],
+						'method' => 'DELETE'
 					]) !!}
 						{!! Form::submit('Remover') !!}
 					{!! Form::close() !!}

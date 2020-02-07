@@ -12,25 +12,21 @@ use App\Validators\InstitutionValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
 // DECLARACAO DA CLASSE
-class InstitutionService
-{
+class InstitutionService{
 
     private $repository;
     private $validator;
 
     // CONSTRUTOR
-    public function __construct(InstitutionRepository $repository, InstitutionValidator $validator)
-    {
+    public function __construct(InstitutionRepository $repository, InstitutionValidator $validator){
         /* vai gerenciar obj INSTITUTION em aspecto de banco de dados */
         $this->repository = $repository;
         $this->validator = $validator;
     }
 
     // METODO PARA FAZER A PERSISTENCIA NO BANCO
-    public function store($data)
-    {
-        try
-        {
+    public function store($data){
+        try{
 
             // VALIDANDO OS DADOS DA INSTITUIÇÃO PASSADA
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
@@ -39,44 +35,43 @@ class InstitutionService
             $institution = $this->repository->create($data);
 
             // RETORNANDO OS DADOS
-            return  [
-                        // SUCESSO(OU NAO) NO RETORNO DOS DADOS
-                        'success'   => true,
-                        // MENSAGEM A SER ENVIADA
-                        'messages'   => 'Instituição cadastrado',
-                        // DADOS DA INSTITUIÇÃO CADASTRADA
-                        'data'      => $institution,
-                    ];
+            return [
+                // SUCESSO(OU NAO) NO RETORNO DOS DADOS
+                'success' => true,
+                // MENSAGEM A SER ENVIADA
+                'messages'   => 'Instituição cadastrado',
+                // DADOS DA INSTITUIÇÃO CADASTRADA
+                'data' => $institution,
+            ];
         }
         // EM CASO DE EXCECAO
-        catch(Exception $e)
-        {
-            switch(get_class($e))
-            {
+        catch(Exception $e){
+            switch(get_class($e)){
                 // RETORNANDO ARRAY EM CASO DE EXCECAO
                 case QueryException::class:
-                    return  [
-                                // NAO OBTEVE SUCESSO
-                                'success' => false,
-                                'messages' => $e->getMessage()
-                            ];
+                    return [
+                        // NAO OBTEVE SUCESSO
+                        'success' => false,
+                        'messages' => $e->getMessage()
+                    ];
              
                 case ValidatorException::class:
-                    return  [
-                                'success' => false,
-                                'messages' => $e->getMessagesBag()
-                            ];
+                    return [
+                        'success' => false,
+                        'messages' => $e->getMessagesBag()
+                    ];
                 
                 case Exception::class:
-                    return  [
-                                'success' => false,
-                                'messages' => $e->getMessage()
-                            ];
+                    return [
+                        'success' => false,
+                        'messages' => $e->getMessage()
+                    ];
+
                 default:
-                    return  [
-                                'success' => false,
-                                'messages' => $e->getMessage()
-                            ];
+                    return [
+                        'success' => false,
+                        'messages' => $e->getMessage()
+                    ];
             }
         }
     }
