@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable{
-    // 
+    //
     use SoftDeletes;
-    
-    use Notifiable; // Possibilita envio de notificacoes ao usuario
+    // Possibilita envio de notificacoes ao usuario
+    use Notifiable; 
 
     
     public $timestamps=true;
@@ -18,6 +18,11 @@ class User extends Authenticatable{
 
     
     protected $hidden = ['password', 'remember_token'];
+
+    public function groups(){
+        // Relacionamento N:N
+        return $this->belongsToMany(Group::class, 'user_groups');
+    }
 
     /*Metodo para trabalhar o registro da senha*/
     /** metodo para definir a senha

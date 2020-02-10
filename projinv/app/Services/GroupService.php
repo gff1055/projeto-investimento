@@ -28,10 +28,8 @@ class GroupService{
 		try{
 			// Efetuando a validacao dos dados passados
 			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-
 			// Variavel recebendo a resposta do cadastro dos dados passados
 			$group = $this->repository->create($data);
-
 			// Retornando os dados da resposta
 			return [
 				'success' => true,
@@ -72,6 +70,10 @@ class GroupService{
 
 	public function userStore($group_id, $data){
 		try{
+
+			$group = $this->repository->find($group_id);
+
+			dd($group);
 
 			// Retornando os dados da resposta
 			return [
