@@ -72,19 +72,20 @@ class GroupService{
 		try{
 
 			$group = $this->repository->find($group_id);
-
-			dd($group);
-
+			$user_id = $data['user_id'];
+			$group->users()->attach($user_id);
+			
 			// Retornando os dados da resposta
 			return [
 				'success' 	=> true,
 				'messages' 	=> "Usuario relacionado com sucesso",
-				'data' 		=> null,
+				'data' 		=> $group,
 			];
 		}
 
 		// Tratando erros em caso gerem excecoes
 		catch(Exception $e){
+			dd($e);
 			switch(get_class($e)){
 				case QueryException::class:
 					return [

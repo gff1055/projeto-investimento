@@ -33,4 +33,7 @@
 	
 {!! Form::close() !!}
 
+<? // Fazendo o include do arquivo LIST.BLADE.PHP da pasta GROUPS para reutilização da tabela  ?>
+@include('user.list',	['user_list' => $group->users])
+
 @endsection
