@@ -38,7 +38,7 @@ class UsersController extends Controller
     
     public function index()
     {
-        $users = $this->repository->all();  // atribuindo uma colecao de todos(all) os usuarios
+        $users = $this->repository->all();      // atribuindo uma colecao de todos(all) os usuarios
 
         // passando para a view um array com os dados dos usuarios
         return view('user.index',[
@@ -50,11 +50,11 @@ class UsersController extends Controller
     // METODO QUE ENVIA OS DADOS PARA O CADASTRO
     public function store(UserCreateRequest $request){
 
-        $request = $this->service->store($request->all());  // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
-        $usuario = $request['success'] ? $request['data'] : null;   // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
+        $request = $this->service->store($request->all());              // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
+        $usuario = $request['success'] ? $request['data'] : null;       // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI CADASTRADO OU NAO
-        session()->flash('success', [   // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
+        session()->flash('success', [           // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
             'success' => $request['success'],
             'messages' => $request['messages'],
         ]);
@@ -150,11 +150,11 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $request = $this->service->destroy($id);    // RECEBENDO A RESPOSTA DO SERVICE SOBRE A REMOÇÃO DO ID SELECIONADO
+        $request = $this->service->destroy($id);                        // RECEBENDO A RESPOSTA DO SERVICE SOBRE A REMOÇÃO DO ID SELECIONADO
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI EXCLUIDO OU NAO
-        session()->flash(   // METODO QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW
-            'success',  // NOME DA SESSAO
+        session()->flash(                       // METODO QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW
+            'success',                          // NOME DA SESSAO
             [   // DADOS ARMAZENADOS NESSA SESSAO
                 'success' => $request['success'],
                 'messages' => $request['messages'],

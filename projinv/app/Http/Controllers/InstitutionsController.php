@@ -42,7 +42,7 @@ class InstitutionsController extends Controller
     public function store(InstitutionCreateRequest $request)
     {
         
-        $request = $this->service->store($request->all());  // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
+        $request = $this->service->store($request->all());              // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
         $institution = $request['success'] ? $request['data'] : null;   // RECEBENDO(OU NAO) OS DADOS DA INSTITUICAO CADASTRADA
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR NA TELA SE A INSTITUICAO FOI CADASTRADO OU NAO
@@ -52,14 +52,14 @@ class InstitutionsController extends Controller
             'messages' => $request['messages'],
         ]);
 
-        return redirect()->route('institution.index');  // RETORNANDO OS DADOS DA INSTITUICAO
+        return redirect()->route('institution.index');                  // RETORNANDO OS DADOS DA INSTITUICAO
     }
     
 
     // Metodo para mostrar os detalhes da instituicao
     public function show($id)
     {
-        $institution = $this->repository->find($id);    // Variavel INSTITUTION recebe a chave primaria da tabela
+        $institution = $this->repository->find($id);                    // Variavel INSTITUTION recebe a chave primaria da tabela
         return view("institutions.show", ['institution' => $institution]);  // Retorna o valor de INSTITUTION para a view
     }
 

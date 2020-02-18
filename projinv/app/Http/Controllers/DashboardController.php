@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('user.dashboard');  // Retornando a view Dashboard da pasta View
+        return view('user.dashboard');          // Retornando a view Dashboard da pasta View
     }
 
 
@@ -56,11 +56,11 @@ class DashboardController extends Controller
                 if($user->password != $request->get('password'))
                     throw new Exception("A senha informada é invalida..."); // Lançando uma exceção
 
-                Auth::login($user); /* Fazendo autenticacao do usuario a partir do proprio objeto */
+                Auth::login($user);             /* Fazendo autenticacao do usuario a partir do proprio objeto */
                 
             }
 
-            return redirect()->route('user.dashboard'); /* Redirecionamento para a oagina inicial do sistema (Dashboard) */
+            return redirect()->route('user.dashboard');                 /* Redirecionamento para a oagina inicial do sistema (Dashboard) */
 
         }
         catch(Exception $e){

@@ -27,21 +27,14 @@ class InstitutionService{
     // METODO PARA FAZER A PERSISTENCIA NO BANCO
     public function store($data){
         try{
-
-            // VALIDANDO OS DADOS DA INSTITUIÇÃO PASSADA
-            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-            
-            // PEDINDO AO REPOSITORIO FAZER UM CADASTRO NO BANCO DE DADOS COM OS DADOS VALIDADOS
-            $institution = $this->repository->create($data);
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);   // VALIDANDO OS DADOS DA INSTITUIÇÃO PASSADA
+            $institution = $this->repository->create($data);            // PEDINDO AO REPOSITORIO FAZER UM CADASTRO NO BANCO DE DADOS COM OS DADOS VALIDADOS
 
             // RETORNANDO OS DADOS
             return [
-                // SUCESSO(OU NAO) NO RETORNO DOS DADOS
-                'success' => true,
-                // MENSAGEM A SER ENVIADA
-                'messages'   => 'Instituição cadastrado',
-                // DADOS DA INSTITUIÇÃO CADASTRADA
-                'data' => $institution,
+                'success' => true,              // SUCESSO(OU NAO) NO RETORNO DOS DADOS
+                'messages'   => 'Instituição cadastrado',   // MENSAGEM A SER ENVIADA
+                'data' => $institution,         // DADOS DA INSTITUIÇÃO CADASTRADA
             ];
         }
         // EM CASO DE EXCECAO

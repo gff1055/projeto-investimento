@@ -16,36 +16,28 @@ use Prettus\Validator\Contracts\ValidatorInterface;
 class UserService
 {
     
-    /* vai gerenciar obj user em aspecto de banco de dados */
-    private $repository;
     
-    // 
+    private $repository;                        /* vai gerenciar obj user em aspecto de banco de dados */
     private $validator;
 
     // CONSTRUTOR (COM INJECAO DE DEPENDENCIA)
-    public function __construct(UserRepository $repository, UserValidator $validator)
-    {
+    public function __construct(UserRepository $repository, UserValidator $validator){
         $this->repository = $repository;
         $this->validator = $validator;
     }
 
-    // METODO ONDE É FEITO O CADASTRO DE USUARIO
-    public function store($data)
-    {
-        try{
-            // VALIDANDO OS DADOS DO USUARIO PASSADOS
-            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            // PEDINDO AO REPOSITORIO FAZER UM CADASTRO NO BANCO DE DADOS COM OS DADOS VALIDADOS
-            $usuario = $this->repository->create($data);
+
+    // METODO ONDE É FEITO O CADASTRO DE USUARIO
+    public function store($data){
+        try{
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);   // VALIDANDO OS DADOS DO USUARIO PASSADOS
+            $usuario = $this->repository->create($data);                // PEDINDO AO REPOSITORIO FAZER UM CADASTRO NO BANCO DE DADOS COM OS DADOS VALIDADOS
 
             return [
-                // SUCESSO(OU NAO) NO RETORNO DOS DADOS
-                'success'   => true,
-                // MENSAGEM A SER ENVIADA
-                'messages'   => 'Usuario cadastrado',
-                // DADOS DO USUARIO CADASTRADO
-                'data'      => $usuario,
+                'success' => true,              // SUCESSO(OU NAO) NO RETORNO DOS DADOS
+                'messages' => 'Usuario cadastrado',                     // MENSAGEM A SER ENVIADA
+                'data' => $usuario,             // DADOS DO USUARIO CADASTRADO
             ];
         }
         // EM CASO DE EXCECAO
@@ -89,8 +81,7 @@ class UserService
     /** METODO PARA REMOÇÃO */
     public function destroy($user_id){
         try{
-            // EXCLUINDO O USUARIO ASSOCIADO COM O ID
-            $this->repository->delete($user_id);
+            $this->repository->delete($user_id);                    // EXCLUINDO O USUARIO ASSOCIADO COM O ID
 
             // RETORNANDO O RESULTADO DA REMOÇAO
             return [

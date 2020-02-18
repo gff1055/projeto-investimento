@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +10,7 @@ class UserGroup extends Model
     // 
     #use SoftDeletes;
     
-    use Notifiable; // Possibilita envio de notificacoes ao usuario
+    use Notifiable;                             // Possibilita envio de notificacoes ao usuario
 
     
     public $timestamps = true;

@@ -20,9 +20,10 @@ class User extends Authenticatable{
     protected $hidden = ['password', 'remember_token'];
 
     public function groups(){
-        // Relacionamento N:N
-        return $this->belongsToMany(Group::class, 'user_groups');
+        return $this->belongsToMany(Group::class, 'user_groups');       // Relacionamento N:N
     }
+
+
 
     /*Metodo para trabalhar o registro da senha*/
     /** metodo para definir a senha
@@ -33,11 +34,14 @@ class User extends Authenticatable{
     }
 
 
+
     /* Acessor para a formatação do CPF */
     public function getFormattedCpfAttribute(){
-        $cpf = $this->attributes['cpf'];    // recebendo o CPF
+        $cpf = $this->attributes['cpf'];        // recebendo o CPF
         return substr($cpf, 0, 3).'.'.substr($cpf, 3, 3).'.'.substr($cpf, 7, 3).'-'.substr($cpf, -2);   // retornando o cpf formatado
     }
+
+
 
     /* Acessor para a formatação do telefone */
     public function getFormattedPhoneAttribute(){
@@ -45,9 +49,11 @@ class User extends Authenticatable{
         return "(" . substr($phone, 0, 2) . ") " . substr($phone, 2, 4) . "-" . substr($phone, -4); // retornando o telefone formatado
     }
 
+
+    
     // Acessor para a formatacao da data
     public function getFormattedBirthAttribute(){
-        $birth = explode("-", $this->attributes['birth']);  // Desmembrando a string usando o '-' como delimitador
+        $birth = explode("-", $this->attributes['birth']);              // Desmembrando a string usando o '-' como delimitador
      
         // Verificando se a data é valida
         if(count($birth) != 3)

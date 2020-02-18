@@ -10,8 +10,7 @@ class UserSocial extends Model
     
     // 
     use SoftDeletes;
-    // Possibilita envio de notificacoes ao usuario
-    use Notifiable;
+    use Notifiable;                             // Possibilita envio de notificacoes ao usuario
 
     /**
      * The attributes that are mass assignable.

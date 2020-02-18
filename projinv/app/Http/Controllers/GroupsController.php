@@ -35,15 +35,14 @@ class GroupsController extends Controller{
 
 
     public function index(){
-        $groups = $this->repository->all(); // Recebendo todos os grupos cadastrados
-        $user_list = $this->userRepository->selectBoxList();    // Recebendo a lista de todos os usuarios
+        $groups = $this->repository->all();     // Recebendo todos os grupos cadastrados
+        $user_list = $this->userRepository->selectBoxList();            // Recebendo a lista de todos os usuarios
         $institution_list = $this->institutionRepository->selectBoxList();  // Recebendo a lista de todas as instituicoes
         
-        return view('groups.index', [
-            // Retornando os dados ...
-            'groups' => $groups,    // ... dos grupos
-            'user_list' => $user_list,  // ... dos usuarios
-            'institution_list' => $institution_list,    // ... das instituicoes
+        return view('groups.index', [           // Retornando os dados ...
+            'groups' => $groups,                // ... dos grupos
+            'user_list' => $user_list,          // ... dos usuarios
+            'institution_list' => $institution_list,                    // ... das instituicoes
         ]);
     }
 
@@ -52,8 +51,8 @@ class GroupsController extends Controller{
     // Metodo para cadastro do grupo
     public function store(GroupCreateRequest $request){
 
-        $request = $this->service->store($request->all());  // Recebendo a resposta do service a respeito da operação de cadastro dos dados
-        $group = $request['success'] ? $request['data'] : null; // Recebendo (ou nao) os dados do grupo cadastrado
+        $request = $this->service->store($request->all());              // Recebendo a resposta do service a respeito da operação de cadastro dos dados
+        $group = $request['success'] ? $request['data'] : null;         // Recebendo (ou nao) os dados do grupo cadastrado
 
         // Criando uma variavel de sessao para mostrar na tela se o grupo foi cadastrado ou nao
         // Metodo (FLASH) que envia a session uma unica vez para a view. SUCCESS é o nome da variavel de sessao
@@ -62,23 +61,23 @@ class GroupsController extends Controller{
             'messages' => $request['messages'],
         ]);
 
-        return redirect()->route('group.index');    // Retoanando os dados do grupo
+        return redirect()->route('group.index');                        // Retoanando os dados do grupo
     }
 
 
 
     public function userStore(Request $request, $group_id){
 
-        $request = $this->service->userStore($group_id, $request->all());  // Recebendo a resposta do service a respeito da operação de cadastro dos dados
+        $request = $this->service->userStore($group_id, $request->all());   // Recebendo a resposta do service a respeito da operação de cadastro dos dados
         
         // Criando uma variavel de sessao para mostrar na tela se o grupo foi cadastrado ou nao
-        // Metodo (FLASH) que envia a session uma unica vez para a view. SUCCESS é o nome da variavel de sessao
-        session()->flash('success', [
+        session()->flash('success', [           /* Metodo (FLASH) que envia a session uma unica vez para a view.
+            SUCCESS é o nome da variavel de sessao*/
             'success' => $request['success'],
             'messages' => $request['messages'],
         ]);
 
-        return redirect()->route('group.show', [$group_id]);    // Retoanando os dados do grupo
+        return redirect()->route('group.show', [$group_id]);            // Retoanando os dados do grupo
     }
 
 
@@ -86,12 +85,12 @@ class GroupsController extends Controller{
     // Metodo para mostrar os dados de um grupo
     public function show($id){
         $group = $this->repository->find($id);  // Buscando o registro do grupo(id) no banco
-        $user_list = $this->userRepository->selectBoxList();    // Recebendo todos os usuarios
+        $user_list = $this->userRepository->selectBoxList();            // Recebendo todos os usuarios
 
         // Retorna os dados do grupo
         return view('groups.show',[
-            'group' => $group,  // Grupo selecionado
-            'user_list' => $user_list   // Lista de usuarios
+            'group' => $group,                  // Grupo selecionado
+            'user_list' => $user_list           // Lista de usuarios
         ]);
     }
 

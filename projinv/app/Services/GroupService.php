@@ -26,10 +26,9 @@ class GroupService{
 	// Metodo para cadastro de dados
 	public function store(array $data) : array{
 		try{
-			// Efetuando a validacao dos dados passados
-			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-			// Variavel recebendo a resposta do cadastro dos dados passados
-			$group = $this->repository->create($data);
+			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);	// Efetuando a validacao dos dados passados
+			$group = $this->repository->create($data);					// Variavel recebendo a resposta do cadastro dos dados passados
+			
 			// Retornando os dados da resposta
 			return [
 				'success' => true,
@@ -68,12 +67,15 @@ class GroupService{
 		}
 	}
 
+
+	// Metodo que faz o relacionamento usuario no grupo
 	public function userStore($group_id, $data){
 		try{
 
-			$group = $this->repository->find($group_id);
-			$user_id = $data['user_id'];
-			$group->users()->attach($user_id);
+			$group = $this->repository->find($group_id);				// Instancia de um objeto grupo
+			$user_id = $data['user_id'];		// Recebendo a ID do usuario fornecida no formulario de grupos
+			$group->users()->attach($user_id);	/* Pega o objeto grupo e insere no relacionamento N:N como uma
+												entrada entre o usuario e o grupo*/
 			
 			// Retornando os dados da resposta
 			return [
