@@ -62,19 +62,13 @@ class UsersController extends Controller
        return redirect()->route('user.index');  // redireciona o usuario para a rota 'user.index'
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+
     public function show($id)
     {
         $user = $this->repository->find($id);
 
         if (request()->wantsJson()) {
-
             return response()->json(
                 ['data' => $user,]
             );
@@ -83,71 +77,36 @@ class UsersController extends Controller
         return view('users.show', compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function edit($id)
     {
         $user = $this->repository->find($id);
 
-        return view('users.edit', compact('user'));
+        return view('user.edit',[
+            'user' => $user
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  UserUpdateRequest $request
-     * @param  string            $id
-     *
-     * @return Response
-     *
-     * @throws \Prettus\Validator\Exceptions\ValidatorException
-     */
-    public function update(UserUpdateRequest $request, $id)
+
+
+    public function update(Request $request, $id)
     {
-        try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+        $request = $this->service->update($request->all(), $id);        // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
+        $usuario = $request['success'] ? $request['data'] : null;       // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
 
-            $user = $this->repository->update($request->all(), $id);
+        // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI CADASTRADO OU NAO
+        session()->flash('success', [           // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
+            'success' => $request['success'],
+            'messages' => $request['messages'],
+        ]);
 
-            $response = [
-                'message' => 'User updated.',
-                'data'    => $user->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                                            'error'   => true,
-                                            'message' => $e->getMessageBag()
-                                        ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+       return redirect()->route('user.index');  // redireciona o usuario para a rota 'user.index'
     }
 
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         $request = $this->service->destroy($id);                        // RECEBENDO A RESPOSTA DO SERVICE SOBRE A REMOÇÃO DO ID SELECIONADO

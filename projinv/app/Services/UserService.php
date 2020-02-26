@@ -73,9 +73,48 @@ class UserService
         }
     }
 
-    public function update()
-    {
+    public function update($data, $id){
+        try{
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);   // VALIDANDO OS DADOS DO USUARIO PASSADOS
+            $usuario = $this->repository->update($data, $id);                // PEDINDO AO REPOSITORIO FAZER UM CADASTRO NO BANCO DE DADOS COM OS DADOS VALIDADOS
 
+            return [
+                'success' => true,              // SUCESSO(OU NAO) NO RETORNO DOS DADOS
+                'messages' => 'Usuario atualizado',                     // MENSAGEM A SER ENVIADA
+                'data' => $usuario,             // DADOS DO USUARIO CADASTRADO
+            ];
+        }
+        // EM CASO DE EXCECAO
+        catch(Exception $e)
+        {
+            switch(get_class($e))
+            {
+                // RETORNANDO ARRAY EM CASO DE EXCECAO
+                case QueryException::class:
+                    return [
+                        // NAO OBTEVE SUCESSO
+                        'success' => false,
+                        'messages' => $e->getMessage()
+                    ];
+                
+                case ValidatorException::class:
+                    return [
+                        'success' => false,
+                        'messages' => $e->getMessagesBag()
+                    ];
+                
+                case Exception::class:
+                    return [
+                        'success' => false,
+                        'messages' => $e->getMessage()
+                    ];
+                default:
+                    return [
+                        'success' => false,
+                        'messages' => $e->getMessage()
+                    ];
+            }
+        }
     }
 
     /** METODO PARA REMOÇÃO */

@@ -39,6 +39,7 @@
 				])!!}
 
 					{!!Form::submit('Remover')!!}
+					<a href="{{ route('user.edit', $user->id) }}">Editar</a>
 				
 				{!! Form::close() !!}
 			</td>

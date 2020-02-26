@@ -21,23 +21,24 @@
     @endif
 
     <!-- Definindo a abertura do formulario -->
-    {!! Form::open([
-        'route' => 'user.store', // ROTA QUE O FORMULARIO VAI ACIONAR AO SER ENVIADO
-        'method' => 'post', //METODO DE ENVIO
-        'class' => 'form-padrao'    // CLASSE DOR FORMULARIO
+    {!! Form::model($user,[
+        'route' => [
+            'user.update',                      // ROTA QUE O FORMULARIO VAI ACIONAR AO SER ENVIADO
+            $user->id
+        ],
+        'method' => 'put',                      // METODO DE ENVIO
+        'class' => 'form-padrao'                // CLASSE DOR FORMULARIO
     ])
     !!}
         
         @include('user.form-fields')
         
         @include('templates.formulario.submit', [
-            'input' => 'Cadastrar'
+            'input' => 'Atualizar'
         ])
 
     <!-- Definindo a FECHAMENTO do formulario -->
     {!! Form::close() !!}
-
-    @include('user.list',	['user_list' => $users])
-
+    
 @endsection
 
