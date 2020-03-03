@@ -30,30 +30,25 @@ class DashboardController extends Controller
     }
 
 
-    /** metodo de autenticacao. Ela recebe o request (dados enviados inseridos pelo usuario)*/
-    public function auth(Request $request)
+    public function auth(Request $request)      /** metodo de autenticacao. Ela recebe o request (dados enviados inseridos pelo usuario)*/
     {
-        /* Dados enviados pelo usuario */
-        $data = [
+        $data = [                               /* Dados enviados pelo usuario */
             'email' => $request->get('username'),
             'password' => $request->get('password')
         ];
 
         try
         {
-            /* Testando se a criptografia esta ativada*/
-            if(env('PASSWORD_HASH'))    
+            if(env('PASSWORD_HASH'))            /* Testando se a criptografia esta ativada*/
                 Auth::attempt($data, false);    /* Fazendo uma tentativa de autenticação */
             
             else{
                 $user = $this->repository->findWhere(['email' => $request->get('username')])->first();  /* buscando o email inserido e atribui o username usuario se existir*/
                 
-                /* Testa se o usuario existe */
-                if(!$user)
+                if(!$user)                      /* Testa se o usuario existe */
                     throw new Exception("E-mail informado é invalido...."); // Lançando exceção O EMAIL NAO EXISTE
 
-                // Verificando se a senha está correta
-                if($user->password != $request->get('password'))
+                if($user->password != $request->get('password'))        // Verificando se a senha está correta
                     throw new Exception("A senha informada é invalida..."); // Lançando uma exceção
 
                 Auth::login($user);             /* Fazendo autenticacao do usuario a partir do proprio objeto */
@@ -67,8 +62,7 @@ class DashboardController extends Controller
             return $e->getMessage();
         }
 
-        /* dump and die() [var_dump and die]*/
-        dd($request->all()); 
+        dd($request->all());                    /* dump and die() [var_dump and die]*/
 
         echo "Auth method";
 

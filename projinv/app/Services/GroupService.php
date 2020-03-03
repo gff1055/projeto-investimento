@@ -16,29 +16,25 @@ class GroupService{
 	private $validator;
 
 
-	// funcao cnstrutora
-	public function __construct(GroupRepository $repository, GroupValidator $validator){
+	public function __construct(GroupRepository $repository, GroupValidator $validator){	// funcao cnstrutora
 		$this->repository = $repository;
 		$this->validator = $validator;
 	}
 
 
-	// Metodo para cadastro de dados
-	public function store(array $data) : array{
+	public function store(array $data) : array{	// Metodo para cadastro de dados
 		try{
 			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);	// Efetuando a validacao dos dados passados
 			$group = $this->repository->create($data);					// Variavel recebendo a resposta do cadastro dos dados passados
 			
-			// Retornando os dados da resposta
-			return [
+			return [							// Retornando os dados da resposta		
 				'success' => true,
 				'messages' => "Grupo Cadastrado",
 				'data' => $group,
 			];
 		}
 
-		// Tratando erros em caso gerem excecoes
-		catch(Exception $e){
+		catch(Exception $e){					// Tratando erros em caso gerem excecoes
 			switch(get_class($e)){
 				case QueryException::class:
 					return [
@@ -68,25 +64,21 @@ class GroupService{
 	}
 
 
-	// Metodo que faz o relacionamento usuario no grupo
-	public function userStore($group_id, $data){
+	public function userStore($group_id, $data){						// Metodo que faz o relacionamento usuario no grupo
 		try{
-
 			$group = $this->repository->find($group_id);				// Instancia de um objeto grupo
 			$user_id = $data['user_id'];		// Recebendo a ID do usuario fornecida no formulario de grupos
 			$group->users()->attach($user_id);	/* Pega o objeto grupo e insere no relacionamento N:N como uma
 												entrada entre o usuario e o grupo*/
 			
-			// Retornando os dados da resposta
-			return [
+			return[								// Retornando os dados da resposta
 				'success' 	=> true,
 				'messages' 	=> "Usuario relacionado com sucesso",
 				'data' 		=> $group,
 			];
 		}
 
-		// Tratando erros em caso gerem excecoes
-		catch(Exception $e){
+		catch(Exception $e){					// Tratando erros em caso gerem excecoes
 			dd($e);
 			switch(get_class($e)){
 				case QueryException::class:

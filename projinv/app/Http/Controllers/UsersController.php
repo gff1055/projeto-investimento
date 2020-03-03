@@ -14,42 +14,30 @@ use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
 use App\Services\UserService;
 
-/**
- * Class UsersController.
- *
- * @package namespace App\Http\Controllers;
- */
-class UsersController extends Controller
-{
 
+class UsersController extends Controller{
     protected $repository;
 
-    // VARIAVEL PARA A CAMADA DE SERVICE
-    protected $service;
+    protected $service;                         // VARIAVEL PARA A CAMADA DE SERVICE
 
 
-    public function __construct(UserRepository $repository, UserService $service)
-    {
+    public function __construct(UserRepository $repository, UserService $service){
         $this->repository   = $repository;
         $this->service      = $service;
 
     }
 
     
-    public function index()
-    {
+    public function index(){
         $users = $this->repository->all();      // atribuindo uma colecao de todos(all) os usuarios
 
-        // passando para a view um array com os dados dos usuarios
-        return view('user.index',[
+        return view('user.index',[              // passando para a view um array com os dados dos usuarios
             'users' => $users
         ]);
     }
 
 
-    // METODO QUE ENVIA OS DADOS PARA O CADASTRO
-    public function store(UserCreateRequest $request){
-
+    public function store(UserCreateRequest $request){                  // METODO QUE ENVIA OS DADOS PARA O CADASTRO
         $request = $this->service->store($request->all());              // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
         $usuario = $request['success'] ? $request['data'] : null;       // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
 
@@ -114,8 +102,7 @@ class UsersController extends Controller
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI EXCLUIDO OU NAO
         session()->flash(                       // METODO QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW
             'success',                          // NOME DA SESSAO
-            [   // DADOS ARMAZENADOS NESSA SESSAO
-                'success' => $request['success'],
+            [   'success' => $request['success'],                       // DADOS ARMAZENADOS NESSA SESSAO
                 'messages' => $request['messages'],
             ]
         );

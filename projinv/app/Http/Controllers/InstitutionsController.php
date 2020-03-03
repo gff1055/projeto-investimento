@@ -32,22 +32,19 @@ class InstitutionsController extends Controller
         
         $institutions = $this->repository->all();
         
-        // PASSANDO AS VARIAVEIS PARA A VIEW VIA ARRAY
-        return view('institutions.index', [
+        return view('institutions.index', [     // PASSANDO AS VARIAVEIS PARA A VIEW VIA ARRAY
             'institutions' => $institutions,
         ]);
     }
 
-    // METODO QUE ENVIA OS DADOS PARA O CADASTRO
-    public function store(InstitutionCreateRequest $request)
-    {
+    
+    public function store(InstitutionCreateRequest $request){           // METODO QUE ENVIA OS DADOS PARA O CADASTRO
         
         $request = $this->service->store($request->all());              // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
         $institution = $request['success'] ? $request['data'] : null;   // RECEBENDO(OU NAO) OS DADOS DA INSTITUICAO CADASTRADA
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR NA TELA SE A INSTITUICAO FOI CADASTRADO OU NAO
-        // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
-        session()->flash('success', [
+        session()->flash('success', [                                   // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
             'success' => $request['success'],
             'messages' => $request['messages'],
         ]);
@@ -56,8 +53,7 @@ class InstitutionsController extends Controller
     }
     
 
-    // Metodo para mostrar os detalhes da instituicao
-    public function show($id)
+    public function show($id)                   // Metodo para mostrar os detalhes da instituicao
     {
         $institution = $this->repository->find($id);                    // Variavel INSTITUTION recebe a chave primaria da tabela
         return view("institutions.show", ['institution' => $institution]);  // Retorna o valor de INSTITUTION para a view

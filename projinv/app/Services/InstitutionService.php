@@ -1,50 +1,42 @@
 <?php
 
-// DEFININDO O NAMESPACE
-namespace App\Services;
+namespace App\Services;                         // DEFININDO O NAMESPACE
 
-// CLASSES PARA AUXILIAR O DESENVOLVIMENTO DA CLASSE ATUAL
-use Illuminate\Database\QueryException;
+use Illuminate\Database\QueryException;         // CLASSES PARA AUXILIAR O DESENVOLVIMENTO DA CLASSE ATUAL
 use Exception;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Repositories\InstitutionRepository;
 use App\Validators\InstitutionValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
-// DECLARACAO DA CLASSE
-class InstitutionService{
+
+class InstitutionService{                       // DECLARACAO DA CLASSE
 
     private $repository;
     private $validator;
 
-    // CONSTRUTOR
-    public function __construct(InstitutionRepository $repository, InstitutionValidator $validator){
-        /* vai gerenciar obj INSTITUTION em aspecto de banco de dados */
-        $this->repository = $repository;
+    public function __construct(InstitutionRepository $repository, InstitutionValidator $validator){    // CONSTRUTOR
+        $this->repository = $repository;        /* vai gerenciar obj INSTITUTION em aspecto de banco de dados */
         $this->validator = $validator;
     }
 
-    // METODO PARA FAZER A PERSISTENCIA NO BANCO
-    public function store($data){
+    public function store($data){               // METODO PARA FAZER A PERSISTENCIA NO BANCO
         try{
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);   // VALIDANDO OS DADOS DA INSTITUIÇÃO PASSADA
             $institution = $this->repository->create($data);            // PEDINDO AO REPOSITORIO FAZER UM CADASTRO NO BANCO DE DADOS COM OS DADOS VALIDADOS
 
-            // RETORNANDO OS DADOS
-            return [
+            return [                            // RETORNANDO OS DADOS
                 'success' => true,              // SUCESSO(OU NAO) NO RETORNO DOS DADOS
                 'messages'   => 'Instituição cadastrado',   // MENSAGEM A SER ENVIADA
                 'data' => $institution,         // DADOS DA INSTITUIÇÃO CADASTRADA
             ];
         }
-        // EM CASO DE EXCECAO
-        catch(Exception $e){
+        
+        catch(Exception $e){                    // EM CASO DE EXCECAO
             switch(get_class($e)){
-                // RETORNANDO ARRAY EM CASO DE EXCECAO
-                case QueryException::class:
+                case QueryException::class:     // RETORNANDO ARRAY EM CASO DE EXCECAO
                     return [
-                        // NAO OBTEVE SUCESSO
-                        'success' => false,
+                        'success' => false,     // NAO OBTEVE SUCESSO
                         'messages' => $e->getMessage()
                     ];
              

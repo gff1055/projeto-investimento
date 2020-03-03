@@ -1,35 +1,27 @@
 <?php
 /* camada para a regras de negocio */
 
-// DEFININDO O NAMESPACE
-namespace App\Services;
+namespace App\Services;                         // DEFININDO O NAMESPACE
 
-// CLASSES PARA AUXILIAR O DESENVOLVIMENTO DA CLASSE ATUAL
-use Illuminate\Database\QueryException;
+use Illuminate\Database\QueryException;         // CLASSES PARA AUXILIAR O DESENVOLVIMENTO DA CLASSE ATUAL
 use Exception;
 use Prettus\Validator\Exceptions\ValidatorException;
 use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
 
-// DECLARACAO DA CLASSE
-class UserService
+class UserService                               // DECLARACAO DA CLASSE
 {
-    
-    
     private $repository;                        /* vai gerenciar obj user em aspecto de banco de dados */
     private $validator;
 
-    // CONSTRUTOR (COM INJECAO DE DEPENDENCIA)
-    public function __construct(UserRepository $repository, UserValidator $validator){
+    public function __construct(UserRepository $repository, UserValidator $validator){  // CONSTRUTOR (COM INJECAO DE DEPENDENCIA)
         $this->repository = $repository;
         $this->validator = $validator;
     }
 
 
-
-    // METODO ONDE É FEITO O CADASTRO DE USUARIO
-    public function store($data){
+    public function store($data){               // METODO ONDE É FEITO O CADASTRO DE USUARIO
         try{
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);   // VALIDANDO OS DADOS DO USUARIO PASSADOS
             $usuario = $this->repository->create($data);                // PEDINDO AO REPOSITORIO FAZER UM CADASTRO NO BANCO DE DADOS COM OS DADOS VALIDADOS
@@ -40,15 +32,11 @@ class UserService
                 'data' => $usuario,             // DADOS DO USUARIO CADASTRADO
             ];
         }
-        // EM CASO DE EXCECAO
-        catch(Exception $e)
-        {
-            switch(get_class($e))
-            {
-                // RETORNANDO ARRAY EM CASO DE EXCECAO
+        
+        catch(Exception $e){                    // EM CASO DE EXCECAO
+            switch(get_class($e)){              // RETORNANDO ARRAY EM CASO DE EXCECAO
                 case QueryException::class:
-                    return [
-                        // NAO OBTEVE SUCESSO
+                    return [                    // NAO OBTEVE SUCESSO
                         'success' => false,
                         'messages' => $e->getMessage()
                     ];
@@ -84,16 +72,12 @@ class UserService
                 'data' => $usuario,             // DADOS DO USUARIO CADASTRADO
             ];
         }
-        // EM CASO DE EXCECAO
-        catch(Exception $e)
-        {
-            switch(get_class($e))
-            {
-                // RETORNANDO ARRAY EM CASO DE EXCECAO
+        
+        catch(Exception $e){                    // EM CASO DE EXCECAO
+            switch(get_class($e)){              // RETORNANDO ARRAY EM CASO DE EXCECAO
                 case QueryException::class:
                     return [
-                        // NAO OBTEVE SUCESSO
-                        'success' => false,
+                        'success' => false,     // NAO OBTEVE SUCESSO
                         'messages' => $e->getMessage()
                     ];
                 
@@ -117,20 +101,18 @@ class UserService
         }
     }
 
-    /** METODO PARA REMOÇÃO */
-    public function destroy($user_id){
+    public function destroy($user_id){          /** METODO PARA REMOÇÃO */
         try{
             $this->repository->delete($user_id);                    // EXCLUINDO O USUARIO ASSOCIADO COM O ID
-
-            // RETORNANDO O RESULTADO DA REMOÇAO
-            return [
+            
+            return [                            // RETORNANDO O RESULTADO DA REMOÇAO
                 'success' => true,
                 'messages' => 'Usuario removido',
                 'data' => null,
             ];
         }
-        // CASO HAJA ALGUMA EXCECAO
-        catch(Exception $e){
+        
+        catch(Exception $e){                    // CASO HAJA ALGUMA EXCECAO
             switch(get_class($e)){
                 case QueryException::class:
                     return [

@@ -14,9 +14,7 @@ class Institution extends Model implements Transformable
     
     public $timestamp = true;
 
-    // Retorna os grupos de uma instituição
-    public function groups()
-    {
+    public function groups(){                   // Metodo que Retorna os grupos de uma instituição
         return $this->hasMany(Group::class);    // Retorna os grupos que estao relacionados com a instituicao
     }
 

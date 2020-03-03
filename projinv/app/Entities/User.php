@@ -8,8 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable{
     //
     use SoftDeletes;
-    // Possibilita envio de notificacoes ao usuario
-    use Notifiable; 
+    use Notifiable;                             // Possibilita envio de notificacoes ao usuario
 
     
     public $timestamps=true;
@@ -35,28 +34,24 @@ class User extends Authenticatable{
 
 
 
-    /* Acessor para a formatação do CPF */
-    public function getFormattedCpfAttribute(){
+    public function getFormattedCpfAttribute(){ /* Acessor para a formatação do CPF */
         $cpf = $this->attributes['cpf'];        // recebendo o CPF
         return substr($cpf, 0, 3).'.'.substr($cpf, 3, 3).'.'.substr($cpf, 7, 3).'-'.substr($cpf, -2);   // retornando o cpf formatado
     }
 
 
 
-    /* Acessor para a formatação do telefone */
-    public function getFormattedPhoneAttribute(){
+    public function getFormattedPhoneAttribute(){                       /* Acessor para a formatação do telefone */
         $phone = $this->attributes['phone'];    // recebendo o telefone
         return "(" . substr($phone, 0, 2) . ") " . substr($phone, 2, 4) . "-" . substr($phone, -4); // retornando o telefone formatado
     }
 
 
     
-    // Acessor para a formatacao da data
-    public function getFormattedBirthAttribute(){
+    public function getFormattedBirthAttribute(){                       // Acessor para a formatacao da data
         $birth = explode("-", $this->attributes['birth']);              // Desmembrando a string usando o '-' como delimitador
      
-        // Verificando se a data é valida
-        if(count($birth) != 3)
+        if(count($birth) != 3)                  // Verificando se a data é valida
             return "";
         
         $birth = $birth[2] . '/' . $birth[1] . '/' . $birth[0];

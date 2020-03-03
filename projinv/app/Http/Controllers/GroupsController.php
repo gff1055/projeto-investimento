@@ -55,8 +55,7 @@ class GroupsController extends Controller{
         $group = $request['success'] ? $request['data'] : null;         // Recebendo (ou nao) os dados do grupo cadastrado
 
         // Criando uma variavel de sessao para mostrar na tela se o grupo foi cadastrado ou nao
-        // Metodo (FLASH) que envia a session uma unica vez para a view. SUCCESS é o nome da variavel de sessao
-        session()->flash('success', [
+        session()->flash('success', [           // Metodo (FLASH) que envia a session uma unica vez para a view. SUCCESS é o nome da variavel de sessao
             'success' => $request['success'],
             'messages' => $request['messages'],
         ]);
@@ -71,9 +70,8 @@ class GroupsController extends Controller{
         $request = $this->service->userStore($group_id, $request->all());   // Recebendo a resposta do service a respeito da operação de cadastro dos dados
         
         // Criando uma variavel de sessao para mostrar na tela se o grupo foi cadastrado ou nao
-        session()->flash('success', [           /* Metodo (FLASH) que envia a session uma unica vez para a view.
-            SUCCESS é o nome da variavel de sessao*/
-            'success' => $request['success'],
+        session()->flash('success', [           /* Metodo (FLASH) que envia a session uma unica vez para a view.*/
+            'success' => $request['success'],   //SUCCESS é o nome da variavel de sessao
             'messages' => $request['messages'],
         ]);
 
@@ -87,8 +85,7 @@ class GroupsController extends Controller{
         $group = $this->repository->find($id);  // Buscando o registro do grupo(id) no banco
         $user_list = $this->userRepository->selectBoxList();            // Recebendo todos os usuarios
 
-        // Retorna os dados do grupo
-        return view('groups.show',[
+        return view('groups.show',[             // Retorna os dados do grupo
             'group' => $group,                  // Grupo selecionado
             'user_list' => $user_list           // Lista de usuarios
         ]);
@@ -138,7 +135,7 @@ class GroupsController extends Controller{
 
 
 
-    public function destroy($id){    // Metodo para excluir um grupo
+    public function destroy($id){               // Metodo para excluir um grupo
         $deleted = $this->repository->delete($id);
 
         return redirect()->route("group.index");
