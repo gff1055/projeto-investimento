@@ -52,8 +52,7 @@ class UsersController extends Controller{
 
     
 
-    public function show($id)
-    {
+    public function show($id){
         $user = $this->repository->find($id);
 
         if (request()->wantsJson()) {
@@ -67,12 +66,11 @@ class UsersController extends Controller{
 
 
 
-    public function edit($id)
-    {
+    public function edit($id){
         $user = $this->repository->find($id);
 
-        return view('user.edit',[
-            'user' => $user
+        return view('user.edit',[               // Retornando os dados para a View
+            'user' => $user                     // Dados do usuario
         ]);
     }
 
@@ -81,8 +79,8 @@ class UsersController extends Controller{
     public function update(Request $request, $id)
     {
 
-        $request = $this->service->update($request->all(), $id);        // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
-        $usuario = $request['success'] ? $request['data'] : null;       // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
+        $request = $this->service->update($request->all(), $id);    // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
+        $usuario = $request['success'] ? $request['data'] : null;   // RECEBENDO(OU NAO) OS DADOS DO USUARIO CADASTRADO
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI CADASTRADO OU NAO
         session()->flash('success', [           // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
@@ -95,8 +93,7 @@ class UsersController extends Controller{
 
 
 
-    public function destroy($id)
-    {
+    public function destroy($id){
         $request = $this->service->destroy($id);                        // RECEBENDO A RESPOSTA DO SERVICE SOBRE A REMOÇÃO DO ID SELECIONADO
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR AO USUARIO SE O USUARIO FOI EXCLUIDO OU NAO

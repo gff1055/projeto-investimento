@@ -14,19 +14,17 @@
 
 @section('conteudo-view')
 
-    <? // CASO A SESSAO success EXISTA ?>
-    @if(session('success'))
-        <? // IMPRIMINDO A VARIAVEL messages DA VARIAVEL DE SESSAO success ?>
-        <h3>{{ session('success')['messages'] }}</h3>
+    @if(session('success'))                     <? // CASO A SESSAO success EXISTA ?>
+        <h3>{{ session('success')['messages'] }}</h3>      <? // IMPRIMINDO A VARIAVEL messages DA VARIAVEL DE SESSAO success ?>
     @endif
 
     <!-- Definindo a abertura do formulario -->
-    {!! Form::model($user,[
+    {!! Form::model($user,[                     // Objeto da classe modelo
         'route' => [
-            'user.update',                      // ROTA QUE O FORMULARIO VAI ACIONAR AO SER ENVIADO
-            $user->id
+            'user.update',                      // Nome da rota
+            $user->id                           // Inicia os parametros que a rota espera
         ],
-        'method' => 'put',                      // METODO DE ENVIO
+        'method' => 'put',                      // METODO DE ENVIO (put = manutencao de dados)
         'class' => 'form-padrao'                // CLASSE DOR FORMULARIO
     ])
     !!}
@@ -37,8 +35,7 @@
             'input' => 'Atualizar'
         ])
 
-    <!-- Definindo a FECHAMENTO do formulario -->
-    {!! Form::close() !!}
+    {!! Form::close() !!}                       <!-- Definindo a FECHAMENTO do formulario -->
     
 @endsection
 
