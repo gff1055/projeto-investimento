@@ -63,7 +63,9 @@ class InstitutionsController extends Controller
     public function edit($id)
     {
         $institution = $this->repository->find($id);
-        return view('institutions.edit', compact('institution'));
+        return view('institution.edit', [
+            'institution' => $institution
+        ]);
     }
 
 

@@ -64,11 +64,11 @@ class UserService                               // DECLARACAO DA CLASSE
     public function update($data, $id){
         try{
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);   // VALIDANDO OS DADOS DO USUARIO PASSADOS
-            $usuario = $this->repository->update($data, $id);                // PEDINDO AO REPOSITORIO FAZER UM CADASTRO NO BANCO DE DADOS COM OS DADOS VALIDADOS
+            $usuario = $this->repository->update($data, $id);                // PEDINDO AO REPOSITORIO FAZER a atualizacao NO BANCO DE DADOS COM OS DADOS VALIDADOS
 
             return [
                 'success' => true,              // SUCESSO(OU NAO) NO RETORNO DOS DADOS
-                'messages' => 'Usuario atualizado',                     // MENSAGEM A SER ENVIADA
+                'messages' => 'Usuario atualizado',         // MENSAGEM A SER ENVIADA
                 'data' => $usuario,             // DADOS DO USUARIO CADASTRADO
             ];
         }

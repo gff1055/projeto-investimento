@@ -1,14 +1,10 @@
 
-<? // CARREGANDO O TEMPLATE DE FORMLARIOS ?>
-@extends('templates.master')
+@extends('templates.master')                    <? // CARREGANDO O TEMPLATE DE FORMLARIOS ?>
 
-<? // INCLUINDO A SECAO PARA MOSTRAR (conteudo-view) ?>
-@section('conteudo-view')
+@section('conteudo-view')                       <? // INCLUINDO A SECAO PARA MOSTRAR (conteudo-view) ?>
 
-<? // CASO A SESSAO success EXISTA ?>
-@if(session('success'))
-    <? // IMPRIMINDO A VARIAVEL messages DA VARIAVEL DE SESSAO success ?>
-    <h3> {{ session('success')['messages'] }} </h3>
+@if(session('success'))                         <? // CASO A SESSAO success EXISTA ?>
+    <h3> {{ session('success')['messages'] }} </h3>         <? // IMPRIMINDO A VARIAVEL messages DA VARIAVEL DE SESSAO success ?>
 @endif
 
 {!!
@@ -47,8 +43,7 @@ Form::open([
     </thead>
 
     <tbody>
-        <!-- utilizando colecao de usuarios vindos do controller(user) -->
-        @foreach ($institutions as $inst)
+        @foreach ($institutions as $inst)       <!-- utilizando colecao de usuarios vindos do controller(user) -->
             <tr>
                 <td>{{ $inst->id }}</td>
                 <td>{{ $inst->name }}</td>
@@ -65,6 +60,7 @@ Form::open([
                     {!! Form::submit("Remover") !!}
                     <? // Link que mostra os detalhes da instituicao ?>
                     <a href="{{ route('institution.show', $inst->id) }}">Detalhes</a>
+                    <a href="{{ route('institution.edit', $inst->id) }}">Editar</a>
                     {!! Form::close() !!}
                 </td>
             </tr>
