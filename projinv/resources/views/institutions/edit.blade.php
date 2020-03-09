@@ -9,9 +9,12 @@
 	@endif
 
 	{!!
-	Form::open([
-    	'route' => 'institution.store',
-	    'method' => 'post',
+	Form::model($institution, [
+    	'route' => [
+			'institution.update',
+			$institution->id
+		],
+	    'method' => 'put',
     	'class' => 'form-padrao'
 	])!!}
     	<? // ADICIONANDO OS INPUTS DO FORMULARIO
@@ -26,7 +29,7 @@
     	])
 
 	    @include('templates.formulario.submit', [
-    	    'input' => 'cadastrar'
+    	    'input' => 'Atualizar'
 	    ])
     
 	{!! Form::close(); !!}

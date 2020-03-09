@@ -40,66 +40,45 @@ class InstitutionsController extends Controller
     
     public function store(InstitutionCreateRequest $request){           // METODO QUE ENVIA OS DADOS PARA O CADASTRO
         
-        $request = $this->service->store($request->all());              // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
+        $request = $this->service->store($request->all());  // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
         $institution = $request['success'] ? $request['data'] : null;   // RECEBENDO(OU NAO) OS DADOS DA INSTITUICAO CADASTRADA
 
         // CRIANDO UMA VARIAVEL DE SESSAO PARA MOSTRAR NA TELA SE A INSTITUICAO FOI CADASTRADO OU NAO
-        session()->flash('success', [                                   // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
+        session()->flash('success', [           // METODO(flash) QUE ENVIA A SESSION UMA UNICA VEZ PARA A VIEW. success É O NOME DA VARIAVEL DE SESSAO
             'success' => $request['success'],
             'messages' => $request['messages'],
         ]);
 
-        return redirect()->route('institution.index');                  // RETORNANDO OS DADOS DA INSTITUICAO
+        return redirect()->route('institution.index');      // RETORNANDO OS DADOS DA INSTITUICAO
     }
     
 
     public function show($id)                   // Metodo para mostrar os detalhes da instituicao
     {
-        $institution = $this->repository->find($id);                    // Variavel INSTITUTION recebe a chave primaria da tabela
-        return view("institutions.show", ['institution' => $institution]);  // Retorna o valor de INSTITUTION para a view
+        $institution = $this->repository->find($id);        // Variavel INSTITUTION recebe a chave primaria da tabela
+        return view("institutions.show", ['institution' => $institution]);      // Retorna o valor de INSTITUTION para a view
     }
 
     
     public function edit($id)
     {
         $institution = $this->repository->find($id);
-        return view('institution.edit', [
+        return view('institutions.edit', [
             'institution' => $institution
         ]);
     }
 
 
-    public function update(InstitutionUpdateRequest $request, $id)
-    {
-        try {
+    public function update(Request $request, $id){
+        $request = $this->service->update($request->all(), $id);
+        $institution = $request['success'] ? $request['data'] : null;
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+        session()->flash('success', [
+            'success' => $request['success'],
+            'messages' => $request['messages']
+        ]);
 
-            $institution = $this->repository->update($request->all(), $id);
-
-            $response = [
-                'message' => 'Institution updated.',
-                'data'    => $institution->toArray(),
-            ];
-
-            if ($request->wantsJson()) {
-
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+        return redirect()->route('institution.index');
     }
 
 
