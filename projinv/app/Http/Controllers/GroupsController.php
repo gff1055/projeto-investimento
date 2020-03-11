@@ -14,6 +14,7 @@ use App\Repositories\InstitutionRepository;
 use App\Repositories\UserRepository;
 use App\Validators\GroupValidator;
 use App\Services\GroupService;
+use App\Entities\Group;
 
 class GroupsController extends Controller{
     protected $userRepository;
@@ -94,9 +95,9 @@ class GroupsController extends Controller{
 
 
     public function edit($id){
-        $group = $this->repository->find($id);
+        $group = Group::find($id);
 
-        return view('groups.edit', compact('group'));
+        
     }
 
 

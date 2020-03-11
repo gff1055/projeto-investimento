@@ -27,6 +27,7 @@
 					]) !!}
 						{!! Form::submit('Remover') !!}
 						<a href="{{ route('group.show', $group->id) }}">Detalhes</a>
+						<a href="{{ route('group.edit', $group->id) }}">Editar</a>
 					{!! Form::close() !!}
 					
 				</td>
