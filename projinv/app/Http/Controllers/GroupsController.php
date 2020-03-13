@@ -96,8 +96,14 @@ class GroupsController extends Controller{
 
     public function edit($id){
         $group = Group::find($id);
-
+        $user_list = $this->userRepository->selectBoxList();
+        $institution_list = $this->institutionRepository->selectBoxList();
         
+        return view('groups.edit', [
+            'group' => $group,
+            'user_list' => $user_list,
+            'institution_list' => $institution_list
+        ]);
     }
 
 
