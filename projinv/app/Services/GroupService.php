@@ -108,6 +108,42 @@ class GroupService{
 		}
 	}
 
+
+	public function update($group_id, array $data) : array{
+
+		>>>>>>
+
+
+		catch(Exception $e){					// Tratando erros em caso gerem excecoes
+			dd($e);
+			switch(get_class($e)){
+				case QueryException::class:
+					return [
+						'success' => false,
+						'messages' => $e->getMessage()
+					];
+				
+				case ValidatorException::class:
+					return [
+						'success' =>false,
+						'messages' => $e->getMessageBag()
+					];
+
+				case Exception::class:
+					return [
+						'success' => false,
+						'messages' => $e->getMessage()
+					];
+
+				default:
+					return [
+						'success' => false,
+						'message' => $e->getMessage()
+					];						
+			}
+		}
+	}
+
 }
 
 

@@ -29,21 +29,20 @@
 			'data' => $user_list,
 			'attributes' => [
 				'placeholder' => 'User',
-			],
+			]
 		])
 
 		@include('templates.formulario.select',[
-			'' => '',
-			'' => '',
-			'' => '',
-			'' => '',
+			'label' => 'Instituição',
+			'select' => 'institution_id',
+			'data' => $institution_list,
+			'attributes' => [
+				'placeholder' => 'Instituição'
+			]
 		])
 
-		@include('templates.formulario.input',[
-			'' => '',
-			'' => '',
-			'' => '',
-			'' => '',
+		@include('templates.formulario.submit',[
+			'input' => 'Atualizar'
 		])
 
 @endsection
