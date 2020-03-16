@@ -111,8 +111,16 @@ class GroupService{
 
 	public function update($group_id, array $data) : array{
 
-		>>>>>>
+		try{
+			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
+			$group = $this->repository->update($data, $group_id);
 
+			return[
+				'success' => true,
+				'messages' => "Grupo Atualizado",
+				'data' => $group,
+			];
+		}
 
 		catch(Exception $e){					// Tratando erros em caso gerem excecoes
 			dd($e);
