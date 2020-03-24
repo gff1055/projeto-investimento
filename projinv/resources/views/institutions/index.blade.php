@@ -58,9 +58,8 @@ Form::open([
                         'method' => 'delete'
                     ])!!}
                     {!! Form::submit("Remover") !!}
-                    <? // Link que mostra os detalhes da instituicao ?>
-                    <a href="{{ route('institution.show', $inst->id) }}">Detalhes</a>
-                    <a href="{{ route('institution.edit', $inst->id) }}">Editar</a>
+                    <a href="{{ route('institution.show', $inst->id) }}">Detalhes</a>   <? // Link que mostra os detalhes da instituicao ?>
+                    <a href="{{ route('institution.edit', $inst->id) }}">Editar</a> <? // Link que mostra a opcao de editar as informacoes da instituicao ?>
                     {!! Form::close() !!}
                 </td>
             </tr>

@@ -109,26 +109,25 @@ class GroupService{
 	}
 
 
-	public function update($group_id, array $data) : array{
+	public function update($group_id, array $data) : array{	// Metodo que efetua a atualizacao dos dados do grupo
 
 		try{
-			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);
-			$group = $this->repository->update($data, $group_id);
+			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);	// Valida os dados passados
+			$group = $this->repository->update($data, $group_id);	// Faz a atualizacao
 
-			return[
-				'success' => true,
-				'messages' => "Grupo Atualizado",
-				'data' => $group,
+			return[								// Retorna os dados
+				'success' => true,				// Houve sucesso
+				'messages' => "Grupo Atualizado",	// Mensagem
+				'data' => $group,				// Dados do grupo
 			];
 		}
 
 		catch(Exception $e){					// Tratando erros em caso gerem excecoes
-			dd($e);
 			switch(get_class($e)){
 				case QueryException::class:
-					return [
-						'success' => false,
-						'messages' => $e->getMessage()
+					return [					// Retorno de dados
+						'success' => false,		// Nao houve sucesso
+						'messages' => $e->getMessage()	// Mensagem de erro
 					];
 				
 				case ValidatorException::class:

@@ -60,25 +60,24 @@ class InstitutionsController extends Controller
     }
 
     
-    public function edit($id)
-    {
-        $institution = $this->repository->find($id);
-        return view('institutions.edit', [
+    public function edit($id){                  // Metodo que possibilita o acesso e edição dos dados
+        $institution = $this->repository->find($id);                    // Busca os dados da instituicao associada ao ID
+        return view('institutions.edit', [      // Retorna a view de edição juntamente com os dados da pesquisa
             'institution' => $institution
         ]);
     }
 
 
-    public function update(Request $request, $id){
-        $request = $this->service->update($request->all(), $id);
-        $institution = $request['success'] ? $request['data'] : null;
+    public function update(Request $request, $id){                      // Metodo para atualizar a instituicao
+        $request = $this->service->update($request->all(), $id);        // Recebe a resposta da rotina de atualizacao
+        $institution = $request['success'] ? $request['data'] : null;   // Institution recebe a resposta
 
         session()->flash('success', [
             'success' => $request['success'],
             'messages' => $request['messages']
         ]);
 
-        return redirect()->route('institution.index');
+        return redirect()->route('institution.index');                  // faz o redirecionamento para a INDEX
     }
 
 

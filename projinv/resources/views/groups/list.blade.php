@@ -26,8 +26,8 @@
 						'method' => 'DELETE'
 					]) !!}
 						{!! Form::submit('Remover') !!}
-						<a href="{{ route('group.show', $group->id) }}">Detalhes</a>
-						<a href="{{ route('group.edit', $group->id) }}">Editar</a>
+						<a href="{{ route('group.show', $group->id) }}">Detalhes</a>	<? // Detalhes do grupo ?>
+						<a href="{{ route('group.edit', $group->id) }}">Editar</a>	<? // Edita o grupo ?>
 					{!! Form::close() !!}
 					
 				</td>

@@ -76,15 +76,14 @@ class GroupsController extends Controller{
             'messages' => $request['messages'],
         ]);
 
-        return redirect()->route('group.show', [$group_id]);            // Retoanando os dados do grupo
+        return redirect()->route('group.show', [$group_id]);    // Retoanando os dados do grupo
     }
 
 
 
-    // Metodo para mostrar os dados de um grupo
-    public function show($id){
+    public function show($id){                  // Metodo para mostrar os dados de um grupo
         $group = $this->repository->find($id);  // Buscando o registro do grupo(id) no banco
-        $user_list = $this->userRepository->selectBoxList();            // Recebendo todos os usuarios
+        $user_list = $this->userRepository->selectBoxList();    // Recebendo todos os usuarios
 
         return view('groups.show',[             // Retorna os dados do grupo
             'group' => $group,                  // Grupo selecionado
@@ -94,29 +93,29 @@ class GroupsController extends Controller{
 
 
 
-    public function edit($id){
-        $group = Group::find($id);
-        $user_list = $this->userRepository->selectBoxList();
-        $institution_list = $this->institutionRepository->selectBoxList();
+    public function edit($id){                  // Metodo para editar um grupo
+        $group = Group::find($id);              // Busca o grupo associado ao ID
+        $user_list = $this->userRepository->selectBoxList();    // Recebe uma lista de todos os usuarios
+        $institution_list = $this->institutionRepository->selectBoxList();  // Recebe uma lista de todas as instituicoes
         
-        return view('groups.edit', [
-            'group' => $group,
-            'user_list' => $user_list,
-            'institution_list' => $institution_list
+        return view('groups.edit', [            // Retornando os dados
+            'group' => $group,                  // .. do grupo
+            'user_list' => $user_list,          // ... lista de usuario
+            'institution_list' => $institution_list // ... lista de instituicoes
         ]);
     }
 
 
 
-    public function update(Request $request, $group_id){
-        $request = $this->service->update($group_id, $request->all());
+    public function update(Request $request, $group_id){    // Metodo para atualizar os dados do grupo
+        $request = $this->service->update($group_id, $request->all());  // recebe resposta da atualizacao na camada de serviços
 
         session()->flash('success', [
             'success' => $request['success'],
             'messages' => $request['messages'],
         ]);
 
-        return redirect()->route('group.index');
+        return redirect()->route('group.index');    // Redireciona para a listagem de grupos
     }
 
 

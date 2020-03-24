@@ -1,5 +1,5 @@
 
-@extends('templates.master')
+@extends('templates.master')				<? // Inserindo o template ?>
 
 
 @section('conteudo-view')
@@ -11,10 +11,10 @@
 	{!!
 	Form::model($institution, [
     	'route' => [
-			'institution.update',
-			$institution->id
+			'institution.update',				// rota
+			$institution->id					// instituicao a ser atualizada
 		],
-	    'method' => 'put',
+	    'method' => 'put',						// metodo de envio
     	'class' => 'form-padrao'
 	])!!}
     	<? // ADICIONANDO OS INPUTS DO FORMULARIO

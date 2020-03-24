@@ -1,15 +1,15 @@
 
-@extends('templates.master')
+@extends('templates.master')					<? // Template da view?>
 
-@section('conteudo-view')
+@section('conteudo-view')						<? // Conteudo da view?>
 
 	{!! 
 	Form::model($group, [
 		'route' => [
-			'group.update',
-			$group->id
+			'group.update',						// Rota de destno
+			$group->id							// Id cuja informacoes serao alteradas
 		],
-		'method' => 'put',
+		'method' => 'put',						// Metodo de envio
 		'class' => 'form-padrao'
 
 	])
