@@ -22,8 +22,7 @@ class CreateProductsTable extends Migration
 			$table->text('description');
 			$table->text('index');
 			$table->decimal('interest_rate');
-			$table->timestamps();
-			
+						
 			$table->timestampsTz();
 			$table->softDeletes();
 
@@ -38,6 +37,6 @@ class CreateProductsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('products');
+		Schema::dropIfExists('products');
 	}
 }

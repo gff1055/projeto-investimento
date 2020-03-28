@@ -20,6 +20,12 @@ class Product extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'institution_id', 'name', 'description', 'index', 'interest_rate'
+    ];
+
+    public function institution(){
+        return $this->belongTo(Institution::class);
+    }
 
 }
