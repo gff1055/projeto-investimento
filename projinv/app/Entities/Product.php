@@ -25,7 +25,11 @@ class Product extends Model implements Transformable
     ];
 
     public function institution(){
-        return $this->belongTo(Institution::class);
+        return $this->belongsTo(Institution::class);
     }
 
+
+
+    
 }
+
