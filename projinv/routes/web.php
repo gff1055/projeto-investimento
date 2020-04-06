@@ -43,9 +43,12 @@ Route::resource(                                // DEFININDO UM GRUPO DE ROTAS(d
 
 Route::resource('institution','InstitutionsController');    // Cria estrutura (INDEX, STORE, ETC....) para as instituicoes
 Route::resource('group', 'GroupsController');   // Rota RESOURCE (rotas para INDEX, STORE, UPDATE, NEW, SHOW, CREATE....) para GROUPS
+Route::resource('institution.product','ProductsController');
 
 Route::post('group/{group}/user', [
     'as' => 'group.user.store',
     'uses' => 'GroupsController@userStore'
 ]);
+
+
 

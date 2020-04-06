@@ -62,7 +62,6 @@ class InstitutionService{                       // DECLARACAO DA CLASSE
     }
 
     public function update(array $data, $id){   // Metodo que faz a atualizacao das instituicoes
-    
         try{
             $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);   // Valida os dados
             $institution = $this->repository->update($data, $id);       // Recebe a resposta da operacao

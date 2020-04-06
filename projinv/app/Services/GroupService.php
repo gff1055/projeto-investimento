@@ -15,12 +15,10 @@ class GroupService{
 	private $repository;
 	private $validator;
 
-
 	public function __construct(GroupRepository $repository, GroupValidator $validator){	// funcao cnstrutora
 		$this->repository = $repository;
 		$this->validator = $validator;
 	}
-
 
 	public function store(array $data) : array{	// Metodo para cadastro de dados
 		try{
@@ -60,9 +58,10 @@ class GroupService{
 						'message' => $e->getMessage()
 					];						
 			}
-		}
-	}
 
+		}
+
+	}
 
 	public function userStore($group_id, $data){						// Metodo que faz o relacionamento usuario no grupo
 		try{
@@ -105,12 +104,12 @@ class GroupService{
 						'message' => $e->getMessage()
 					];						
 			}
+
 		}
+
 	}
 
-
 	public function update($group_id, array $data) : array{	// Metodo que efetua a atualizacao dos dados do grupo
-
 		try{
 			$this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_UPDATE);	// Valida os dados passados
 			$group = $this->repository->update($data, $group_id);	// Faz a atualizacao
@@ -147,8 +146,11 @@ class GroupService{
 						'success' => false,
 						'message' => $e->getMessage()
 					];						
+
 			}
+
 		}
+
 	}
 
 }

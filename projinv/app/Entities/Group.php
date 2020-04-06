@@ -7,26 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Group extends Model implements Transformable
-{
+class Group extends Model implements Transformable{
     use TransformableTrait;
 
     protected $fillable = ['name', 'user_id', 'institution_id'];
 
-
     /*** CRIANDO RELACIONAMENTOS ENTRE ENTIDADES ***/
-    
     public function owner(){                    // UM GRUPO TEM UMA PESSOA RESPONSAVEL
         return $this->belongsTo(User::class, 'user_id');                // DEFININDO QUE A ENTIDADE group PERTENCE A UM user ATRAVES DO METODO (owner)
     }
 
-    
-
     public function users(){
         return $this->belongsToMany(User::class, 'user_groups');        // Relacionamento N:N
     }
-
-
     
     // UM GRUPO PERTENCE A UMA INSTITUIÇÃO
     public function institution(){

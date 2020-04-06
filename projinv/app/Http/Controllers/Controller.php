@@ -7,8 +7,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Controller extends BaseController
-{
+class Controller extends BaseController{
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function homepage(){
@@ -17,7 +16,6 @@ class Controller extends BaseController
             'title'=>$var
             ]);
     }
-
 
     public function cadastrar(){
     	echo "Tela de Cadastro";

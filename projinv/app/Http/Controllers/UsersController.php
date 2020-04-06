@@ -19,24 +19,19 @@ class UsersController extends Controller{
     protected $repository;
     protected $service;                         // VARIAVEL PARA A CAMADA DE SERVICE
 
-
-
     public function __construct(UserRepository $repository, UserService $service){
         $this->repository   = $repository;
         $this->service      = $service;
-
     }
 
-    
-    
     public function index(){
         $users = $this->repository->all();      // atribuindo uma colecao de todos(all) os usuarios
 
         return view('user.index',[              // passando para a view um array com os dados dos usuarios
             'users' => $users
         ]);
-    }
 
+    }
 
     public function store(UserCreateRequest $request){                  // METODO QUE ENVIA OS DADOS PARA O CADASTRO
         $request = $this->service->store($request->all());              // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE CADASTRO DOS DADOS
@@ -51,8 +46,6 @@ class UsersController extends Controller{
        return redirect()->route('user.index');  // redireciona o usuario para a rota 'user.index'
     }
 
-    
-
     public function show($id){
         $user = $this->repository->find($id);
 
@@ -65,17 +58,14 @@ class UsersController extends Controller{
         return view('users.show', compact('user'));
     }
 
-
-
     public function edit($id){
         $user = $this->repository->find($id);
 
         return view('user.edit',[               // Retornando os dados para a View
             'user' => $user                     // Dados do usuario
         ]);
+
     }
-
-
 
     public function update(Request $request, $id){                  // METODO QUE ENVIA OS DADOS PARA atualizacao
         $request = $this->service->update($request->all(), $id);    // RECEBENDO A RESPOSTA DO SERVICE A RESPEITO DA OPERAÇÃO DE atualizacao DOS DADOS
@@ -89,8 +79,6 @@ class UsersController extends Controller{
 
        return redirect()->route('user.index');  // redireciona o usuario para a rota 'user.index'
     }
-
-
 
     public function destroy($id){
         $request = $this->service->destroy($id);                        // RECEBENDO A RESPOSTA DO SERVICE SOBRE A REMOÇÃO DO ID SELECIONADO

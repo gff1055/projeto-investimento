@@ -23,8 +23,6 @@ class GroupsController extends Controller{
     protected $validator;
     protected $service;
     
-
-
     public function __construct(GroupRepository $repository, GroupValidator $validator, GroupService $service, InstitutionRepository $institutionRepository, UserRepository $userRepository){
         $this->userRepository = $userRepository;
         $this->institutionRepository = $institutionRepository;
@@ -32,8 +30,6 @@ class GroupsController extends Controller{
         $this->validator  = $validator;
         $this->service = $service;
     }
-
-
 
     public function index(){
         $groups = $this->repository->all();     // Recebendo todos os grupos cadastrados
@@ -45,13 +41,11 @@ class GroupsController extends Controller{
             'user_list' => $user_list,          // ... dos usuarios
             'institution_list' => $institution_list,                    // ... das instituicoes
         ]);
+
     }
-
-
 
     // Metodo para cadastro do grupo
     public function store(GroupCreateRequest $request){
-
         $request = $this->service->store($request->all());              // Recebendo a resposta do service a respeito da operação de cadastro dos dados
         $group = $request['success'] ? $request['data'] : null;         // Recebendo (ou nao) os dados do grupo cadastrado
 
@@ -64,10 +58,7 @@ class GroupsController extends Controller{
         return redirect()->route('group.index');                        // Retoanando os dados do grupo
     }
 
-
-
     public function userStore(Request $request, $group_id){
-
         $request = $this->service->userStore($group_id, $request->all());   // Recebendo a resposta do service a respeito da operação de cadastro dos dados
         
         // Criando uma variavel de sessao para mostrar na tela se o grupo foi cadastrado ou nao
@@ -79,8 +70,6 @@ class GroupsController extends Controller{
         return redirect()->route('group.show', [$group_id]);    // Retoanando os dados do grupo
     }
 
-
-
     public function show($id){                  // Metodo para mostrar os dados de um grupo
         $group = $this->repository->find($id);  // Buscando o registro do grupo(id) no banco
         $user_list = $this->userRepository->selectBoxList();    // Recebendo todos os usuarios
@@ -89,9 +78,8 @@ class GroupsController extends Controller{
             'group' => $group,                  // Grupo selecionado
             'user_list' => $user_list           // Lista de usuarios
         ]);
+
     }
-
-
 
     public function edit($id){                  // Metodo para editar um grupo
         $group = Group::find($id);              // Busca o grupo associado ao ID
@@ -103,9 +91,8 @@ class GroupsController extends Controller{
             'user_list' => $user_list,          // ... lista de usuario
             'institution_list' => $institution_list // ... lista de instituicoes
         ]);
+
     }
-
-
 
     public function update(Request $request, $group_id){    // Metodo para atualizar os dados do grupo
         $request = $this->service->update($group_id, $request->all());  // recebe resposta da atualizacao na camada de serviços
@@ -118,11 +105,8 @@ class GroupsController extends Controller{
         return redirect()->route('group.index');    // Redireciona para a listagem de grupos
     }
 
-
-
     public function destroy($id){               // Metodo para excluir um grupo
         $deleted = $this->repository->delete($id);
-
         return redirect()->route("group.index");
     }
 }
