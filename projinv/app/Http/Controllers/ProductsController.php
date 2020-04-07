@@ -41,23 +41,13 @@ class ProductsController extends Controller
         $this->validator  = $validator;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+    
+    public function index($institution_id){
         $products = $this->repository->all();
-
-        if (request()->wantsJson()) {
-            return response()->json([
-                'data' => $products,
-            ]);
-        }
-
-        return view('products.index', compact('products'));
+        
+        return view('institutions.product.index', [
+            'products' => $products
+        ]);
     }
 
     public function store(ProductCreateRequest $request){
