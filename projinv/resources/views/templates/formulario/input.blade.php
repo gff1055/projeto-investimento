@@ -1,3 +1,8 @@
+
+@php
+    $attributes['placeholder'] = $attributes['placeholder'] ?? $label;
+@endphp
+
 <? 
 /**
  * ARQUIVO QUE POSSUI O TEMPLATE DOS INPUTS

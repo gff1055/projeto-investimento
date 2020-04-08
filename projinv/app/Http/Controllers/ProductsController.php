@@ -11,6 +11,7 @@ use App\Http\Requests\ProductCreateRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Repositories\ProductRepository;
 use App\Validators\ProductValidator;
+use App\Entities\Institution;
 
 /**
  * Class ProductsController.
@@ -44,9 +45,11 @@ class ProductsController extends Controller
     
     public function index($institution_id){
         $products = $this->repository->all();
-        
+        $institution = Institution::find($institution_id);
+                
         return view('institutions.product.index', [
-            'products' => $products
+            'institution' => $institution
+
         ]);
     }
 
