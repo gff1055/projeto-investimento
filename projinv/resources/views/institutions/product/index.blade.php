@@ -18,21 +18,22 @@
 		])
 
 		@include('templates.formulario.input', [
-			'label' => '',
-			'' => '',
-			'' => '',
+			'label' => 'Descricao',
+			'input' => 'description',
 		])
 
 		@include('templates.formulario.input', [
-			'label' => '',
-			'' => '',
-			'' => '',
+			'label' => 'Indexador',
+			'input' => 'index',
 		])
 
 		@include('templates.formulario.input', [
-			'label' => '',
-			'' => '',
-			'' => '',
+			'label' => 'Taxa de Juros',
+			'input' => 'interest_rate',
+		])
+
+		@include('templates.formulario.submit', [
+			'input' => 'Cadastrar'
 		])
 
 	{!! Form::close() !!}

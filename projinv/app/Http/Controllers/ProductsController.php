@@ -53,32 +53,24 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function store(ProductCreateRequest $request){
+    public function store(Request $request, $institution_id){
         try {
+            $data = $request->all();
+            $data['institution_id'] = $institution_id;
+            
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-            $product = $this->repository->create($request->all());
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
+            $product = $this->repository->create($data);
 
-            $response = [
-                'message' => 'Product created.',
-                'data'    => $product->toArray(),
-            ];
+            session()->flash('success', [
+                'success' => true,
+                'messages' => "produto cadastrado"
+            ]);
 
-            if ($request->wantsJson()) {
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
+            return redirect()->route('institution.product.index', $institution_id);
         }
 
         catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
             return redirect()->back()->withErrors($e->getMessageBag())->withInput();
         }
 
