@@ -5,14 +5,14 @@
 	
 	{!! Form::open([
 		'route' => [
-			'institution.product.store',
-			$institution->id
+			'institution.product.store',		// Rota
+			$institution->id					// Instituicao associada
 		],
-		'method' => 'post',
-		'class' => 'form-padrao',		
+		'method' => 'post',						// Metodo de envio
+		'class' => 'form-padrao',				// Classe CSS do foemulario
 	]) !!}
 
-		@include('templates.formulario.input', [
+		@include('templates.formulario.input', [	// template
 			'label' => 'Nome do Produto',
 			'input' => 'name'
 		])

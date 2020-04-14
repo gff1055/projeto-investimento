@@ -43,12 +43,12 @@ class ProductsController extends Controller
     }
 
     
-    public function index($institution_id){
-        $products = $this->repository->all();
-        $institution = Institution::find($institution_id);
+    public function index($institution_id){     // Metodo que retorna todos os produtos da instituicao
+        $products = $this->repository->all();   // Recebe todos os produtos
+        $institution = Institution::find($institution_id);  // Retorna p od da instituicao
                 
         return view('institutions.product.index', [
-            'institution' => $institution
+            'institution' => $institution       // Retorna os dados da instituicao para a view INDEX
 
         ]);
     }
