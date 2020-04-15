@@ -44,7 +44,7 @@ class ProductsController extends Controller
 
     
     public function index($institution_id){     // Metodo que retorna todos os produtos da instituicao
-        $products = $this->repository->all();   // Recebe todos os produtos
+        //$products = $this->repository->all();   // Recebe todos os produtos
         $institution = Institution::find($institution_id);  // Retorna p od da instituicao
                 
         return view('institutions.product.index', [
@@ -55,19 +55,19 @@ class ProductsController extends Controller
 
     public function store(Request $request, $institution_id){
         try {
-            $data = $request->all();
-            $data['institution_id'] = $institution_id;
+            $data = $request->all();            // Recebe os dados do produto a ser cadastrado
+            $data['institution_id'] = $institution_id;  // Recebe o id da instituicao associado
             
 
-            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);
-            $product = $this->repository->create($data);
+            $this->validator->with($data)->passesOrFail(ValidatorInterface::RULE_CREATE);   // valida os dados
+            $product = $this->repository->create($data);    // registra os dados do produto
 
             session()->flash('success', [
                 'success' => true,
                 'messages' => "produto cadastrado"
             ]);
 
-            return redirect()->route('institution.product.index', $institution_id);
+            return redirect()->route('institution.product.index', $institution_id); // Redireciona o usuario para index de products
         }
 
         catch (ValidatorException $e) {

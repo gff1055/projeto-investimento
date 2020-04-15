@@ -37,4 +37,36 @@
 		])
 
 	{!! Form::close() !!}
+
+	<table class = "default-table">
+		<thead>
+			<th>#</th>
+			<th>Nome</th>
+			<th>Descricao</th>
+			<th>Indexador</th>
+			<th>Taxa</th>
+			<th>Opções</th>
+		</thead>
+		<tbody>
+			@forelse($institution->products as $product)
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+
+			@empty
+			<tr>
+				<td>Nada cadastrado</td>
+			</tr>
+
+			@endforelse
+			
+		</tbody>
+	</table>
+
+
 @endsection
