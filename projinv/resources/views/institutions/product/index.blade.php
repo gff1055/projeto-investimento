@@ -50,18 +50,33 @@
 		<tbody>
 			@forelse($institution->products as $product)
 			<tr>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
+				<td>{{ $product->id }}</td>
+				<td>{{ $product->name }}</td>
+				<td>{{ $product->description }}</td>
+				<td>{{ $product->index }}</td>
+				<td>{{ $product->interest_rate }}</td>
+				<td>
+					{!! Form::open([
+						'route' => [
+							'institution.product.destroy',
+							$institution->id,
+							$product->id
+						],
+
+						'method' => 'DELETE'
+					])!!}
+						{!! Form::submit('Remover') !!}
+					{!! Form::close() !!}
+					<a href="">Editar</a>
+				</td>
 			</tr>
 
 			@empty
 			<tr>
 				<td>Nada cadastrado</td>
 			</tr>
+
+			
 
 			@endforelse
 			

@@ -45,7 +45,7 @@ class ProductsController extends Controller
     
     public function index($institution_id){     // Metodo que retorna todos os produtos da instituicao
         //$products = $this->repository->all();   // Recebe todos os produtos
-        $institution = Institution::find($institution_id);  // Retorna p od da instituicao
+        $institution = Institution::find($institution_id);  // Retorna o id da instituicao
                 
         return view('institutions.product.index', [
             'institution' => $institution       // Retorna os dados da instituicao para a view INDEX
@@ -124,17 +124,15 @@ class ProductsController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy($institution_id, $product_id)
     {
-        $deleted = $this->repository->delete($id);
+        $deleted = $this->repository->delete($product_id);
 
-        if (request()->wantsJson()) {
-            return response()->json([
-                'message' => 'Product deleted.',
-                'deleted' => $deleted,
-            ]);
-        }
+        session()->flash('success', [
+            'success' => true,
+            'messages' => "Produto removido"
+        ]);
 
-        return redirect()->back()->with('message', 'Product deleted.');
+        return redirect()->back();
     }
 }
