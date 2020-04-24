@@ -124,15 +124,14 @@ class ProductsController extends Controller
     }
 
 
-    public function destroy($institution_id, $product_id)
-    {
-        $deleted = $this->repository->delete($product_id);
+    public function destroy($institution_id, $product_id){
+        $deleted = $this->repository->delete($product_id);  // Deleta o produto
 
-        session()->flash('success', [
+        session()->flash('success', [           // Envia dados para a view
             'success' => true,
             'messages' => "Produto removido"
         ]);
 
-        return redirect()->back();
+        return redirect()->back();              // Retorna o usuario
     }
 }
