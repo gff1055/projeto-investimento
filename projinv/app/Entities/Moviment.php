@@ -11,28 +11,22 @@ use Prettus\Repository\Traits\TransformableTrait;
  *
  * @package namespace App\Entities;
  */
-class Moviment extends Model implements Transformable
-{
+class Moviment extends Model implements Transformable{
     use TransformableTrait;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = ['user_id', 'group_id', 'product_id', 'value', 'type'];
 
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function user(){                     // Metodo para relacionar Moviment e Users
+        return $this->belongsTo(User::class);   // Moviment pertence a Users
     }
 
-    public function group(){
-        return $this->belongsTo(Group::class);
+    public function group(){                    // Metodo para relacionar Moviment e Groups
+        return $this->belongsTo(Group::class);  // Moviment pertence a Groups
     }
 
-    public function product(){
-        return $this->belongsTo(Product::class);
+    public function product(){                  // Metodo para relacionar Moviment e Products
+        return $this->belongsTo(Product::class);    // Moviment pertence a Products
     }
 
 }
