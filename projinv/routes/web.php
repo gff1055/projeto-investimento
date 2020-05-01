@@ -45,6 +45,11 @@ Route::resource('institution','InstitutionsController');    // Cria estrutura (I
 Route::resource('group', 'GroupsController');   // Rota RESOURCE (rotas para INDEX, STORE, UPDATE, NEW, SHOW, CREATE....) para GROUPS
 Route::resource('institution.product','ProductsController');    // Nessa rota o escopo de produto esta dentro da instituicao
 
+Route::get('moviment', [
+    'as' => 'moviment.application',
+    'uses' => 'MovimentsController@application'
+]);
+
 Route::post('group/{group}/user', [
     'as' => 'group.user.store',
     'uses' => 'GroupsController@userStore'

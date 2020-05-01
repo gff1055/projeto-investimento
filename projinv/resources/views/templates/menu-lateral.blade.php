@@ -1,24 +1,31 @@
 <nav id="principal">
     <ul>
         <li>
-        <a href="{{ route('user.index') }}">
+            <a href="{{ route('user.index') }}">
                 <i class="fa fa-user"></i>
                 <h3>Usuários</h3>
             </a>
         </li>
 
         <li>
-        <? // CONFIGURANDO A ROTA PADRAO DE INSTITUTIONS ?>
-        <a href="{{ route('institution.index') }}">
+            <? // CONFIGURANDO A ROTA PADRAO DE INSTITUTIONS ?>
+            <a href="{{ route('institution.index') }}">
                 <i class="fa fa-building-o"></i>
                 <h3>Instituições</h3>
             </a>
         </li>
 
         <li>
-        <a href="{{ route('group.index') }}">
+            <a href="{{ route('group.index') }}">
                 <i class="fa fa-users"></i>
                 <h3>Grupos</h3>
+            </a>
+        </li>
+
+        <li>
+            <a href="{{ route('moviment.application') }}">
+                <i class="fa fa-money"></i>
+                <h3>Investir</h3>
             </a>
         </li>
         
