@@ -11,6 +11,7 @@ use App\Http\Requests\MovimentCreateRequest;
 use App\Http\Requests\MovimentUpdateRequest;
 use App\Repositories\MovimentRepository;
 use App\Validators\MovimentValidator;
+use App\Entities\{Group, Product};
 
 class MovimentsController extends Controller{
     protected $repository;
@@ -23,7 +24,14 @@ class MovimentsController extends Controller{
 
 
     public function application(){
-        return view('moviment.application');
+
+        $group_list = Group::all()->pluck('name','id');
+        $product_list = Product::all()->pluck('name','id');
+
+        return view('moviment.application', [
+            'group_list' => $group_list,
+            'product_list' => $product_list
+        ]);
     }
     
 }

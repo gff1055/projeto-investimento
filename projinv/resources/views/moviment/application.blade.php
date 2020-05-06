@@ -12,7 +12,7 @@
 		@include('templates.formulario.select', [
 			'label' => 'Grupo',
 			'select' => 'group_id',
-			'data' => $group_list,
+			'data' => $group_list ?? [],
 			'attributes' => [
 				'placeholder' => "Grupo"
 			]
@@ -21,9 +21,22 @@
 		@include('templates.formulario.select', [
 			'label' => 'Produto',
 			'select' => 'product_id',
-			'data' => $product_list,
+			'data' => $product_list ?? [],
 			'attributes' => [
-				---------------------d>>>s'Produto',
+				'placeholder' => 'Produtos'
+			]
+		])
+
+		@include('templates.formulario.input',[
+			'label' => 'valor',
+			'input' => 'name',
+			'attributes' => [
+				'placeholder' => 'Nome'
+			]
+		])
+
+		@include('templates.formulario.submit' ,[
+			'input' => 'Cadastrar'
 		])
 
 	{!! Form::close() !!}
