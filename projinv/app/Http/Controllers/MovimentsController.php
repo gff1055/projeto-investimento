@@ -23,10 +23,10 @@ class MovimentsController extends Controller{
     }
 
 
-    public function application(){
+    public function application(){              // Metodo para jogar a view 'moviment.application' na tela
 
-        $group_list = Group::all()->pluck('name','id');
-        $product_list = Product::all()->pluck('name','id');
+        $group_list = Group::all()->pluck('name','id'); // Associa nome nome do grupo com o ID
+        $product_list = Product::all()->pluck('name','id'); // Associa nome nome do grupo com o ID
 
         return view('moviment.application', [
             'group_list' => $group_list,
