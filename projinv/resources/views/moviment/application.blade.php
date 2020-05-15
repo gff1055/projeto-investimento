@@ -4,7 +4,7 @@
 @section('conteudo-view')
 
 	{!! Form::open([							// Abre o formulario
-		'route' => 'institution.store',
+		'route' => 'moviment.application.store',
 		'method' => 'post',
 		'class' => 'form-padrao'
 	])!!}
@@ -31,7 +31,7 @@
 			'label' => 'valor',
 			'input' => 'name',
 			'attributes' => [
-				'placeholder' => 'Nome'
+				'placeholder' => 'Valor'
 			]
 		])
 

@@ -12,6 +12,7 @@ use App\Http\Requests\MovimentUpdateRequest;
 use App\Repositories\MovimentRepository;
 use App\Validators\MovimentValidator;
 use App\Entities\{Group, Product};
+use Auth;
 
 class MovimentsController extends Controller{
     protected $repository;
@@ -25,12 +26,22 @@ class MovimentsController extends Controller{
 
     public function application(){              // Metodo para jogar a view 'moviment.application' na tela
 
-        $group_list = Group::all()->pluck('name','id'); // Associa nome nome do grupo com o ID
+        $user = Auth::user();
+        //dd($user->groups);
+        //dd(Auth::user());
+
+        $group_list = $user->groups->pluck('name','id'); // Associa nome nome do grupo com o ID
         $product_list = Product::all()->pluck('name','id'); // Associa nome nome do grupo com o ID
 
         return view('moviment.application', [
             'group_list' => $group_list,
             'product_list' => $product_list
+        ]);
+    }
+
+    public function storeApplication(Request $request){
+        $movimento = Moviment::create([
+            >>>>>>>
         ]);
     }
     

@@ -50,6 +50,11 @@ Route::get('moviment', [                        // URL...
     'uses' => 'MovimentsController@application' // Metodo do controler onde sera redirecionado
 ]);
 
+Route::post('moviment', [
+    'as' => 'moviment.application.store',
+    'uses' => 'MovimentsController@storeApplication'
+]);
+
 Route::post('group/{group}/user', [
     'as' => 'group.user.store',
     'uses' => 'GroupsController@userStore'
