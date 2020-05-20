@@ -3,6 +3,10 @@
 
 @section('conteudo-view')
 
+	@if(session('success'))
+		<h3>{{ session('success')['messages'] }}</h3>
+	@endif
+
 	{!! Form::open([							// Abre o formulario
 		'route' => 'moviment.application.store',
 		'method' => 'post',
@@ -29,7 +33,7 @@
 
 		@include('templates.formulario.input',[	// Input para inserir o valor
 			'label' => 'valor',
-			'input' => 'name',
+			'input' => 'value',
 			'attributes' => [
 				'placeholder' => 'Valor'
 			]
