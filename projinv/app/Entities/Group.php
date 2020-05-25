@@ -12,6 +12,16 @@ class Group extends Model implements Transformable{
 
     protected $fillable = ['name', 'user_id', 'institution_id'];
 
+
+    public function getTotalValueAttribute(){
+        $total = 0;
+        
+        foreach($this->moviments as $moviment)
+            $total = $moviment->value;
+
+        return $total;
+    }
+
     /*** CRIANDO RELACIONAMENTOS ENTRE ENTIDADES ***/
     public function owner(){                    // UM GRUPO TEM UMA PESSOA RESPONSAVEL
         return $this->belongsTo(User::class, 'user_id');                // DEFININDO QUE A ENTIDADE group PERTENCE A UM user ATRAVES DO METODO (owner)
@@ -24,6 +34,10 @@ class Group extends Model implements Transformable{
     // UM GRUPO PERTENCE A UMA INSTITUIÇÃO
     public function institution(){
         return $this->belongsTo(Institution::class);                    // DEFININDO QUE A ENTIDADE group PERTENCE A UM institution ATRAVES DO METODO (owner)
+    }
+
+    public function moviments(){
+        return $this->hasMany(Moviment::class);
     }
 
 }

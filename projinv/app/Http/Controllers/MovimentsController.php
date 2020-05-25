@@ -39,21 +39,22 @@ class MovimentsController extends Controller{
         ]);
     }
 
-    public function storeApplication(Request $request){
-        $movimento = Moviment::create([
-            'user_id' => Auth::user()->id,
-            'group_id' => $request->get('group_id'),
-            'product_id' => $request->get('product_id'),
-            'value' => $request->get('value'),
-            'type' => 1
+    public function storeApplication(Request $request){ // Metodo para registrar as movimentações financeiras
+
+        $movimento = Moviment::create([         // Cria o registro de moviment
+            'user_id' => Auth::user()->id,      // id do usuario
+            'group_id' => $request->get('group_id'),    // id do grupo
+            'product_id' => $request->get('product_id'),    // id do produto
+            'value' => $request->get('value'),  // valor da movimentação
+            'type' => 1                         // tipo de movimentacao 1(adicao) ou 2(resgate)
         ]);
 
-        session()->flash('success',[
+        session()->flash('success',[            
             'success' => true,
             'messages'=> "Sua aplicacao de  ".$movimento->value." no produto ".$movimento->product->name." foi realizada com sucesso"
         ]);
 
-        return redirect()->route('moviment.application');
+        return redirect()->route('moviment.application');   // redireciona para a rota que ja estava antes
     }
     
 }
