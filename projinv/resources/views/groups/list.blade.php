@@ -12,13 +12,14 @@
 		</tr>
 	</thead>
 	<tbody>
+		<?// Listando os grupos?>
 		@foreach ($group_list as $group)
 			<tr>
-				<td>{{ $group->id }}</td>
-				<td>{{ $group->name }}</td>
-				<td>R$ {{ number_format($group->total_value, 2, ',', '.') }}</td>
-				<td>{{ $group->institution->name }}</td>
-				<td>{{ $group->owner->name }}</td>
+				<td>{{ $group->id }}</td> 		<? // id do grupo ?>
+				<td>{{ $group->name }}</td>		<? // nome do grupo ?>
+				<td>R$ {{ number_format($group->total_value, 2, ',', '.') }}</td>	<? // valor total investido no grupo ?>
+				<td>{{ $group->institution->name }}</td>	<? // Instituicao do grupo ?>
+				<td>{{ $group->owner->name }}</td>	<? // nome do proprietario grupo ?>
 				<td>
 					{!! Form::open([
 						'route' => [

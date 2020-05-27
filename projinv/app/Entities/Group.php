@@ -13,13 +13,13 @@ class Group extends Model implements Transformable{
     protected $fillable = ['name', 'user_id', 'institution_id'];
 
 
-    public function getTotalValueAttribute(){
+    public function getTotalValueAttribute(){   // Metodo Acessor para retornar o valor total investido no grupo
         $total = 0;
         
-        foreach($this->moviments as $moviment)
-            $total = $moviment->value;
+        foreach($this->moviments as $moviment)  // Percorre os movimentos efetuados no grupo
+            $total += $moviment->value;         // Soma os valores dos movimentos
 
-        return $total;
+        return $total;                          // Retorna o total de valores
     }
 
     /*** CRIANDO RELACIONAMENTOS ENTRE ENTIDADES ***/
@@ -36,8 +36,8 @@ class Group extends Model implements Transformable{
         return $this->belongsTo(Institution::class);                    // DEFININDO QUE A ENTIDADE group PERTENCE A UM institution ATRAVES DO METODO (owner)
     }
 
-    public function moviments(){
-        return $this->hasMany(Moviment::class);
+    public function moviments(){                // Metodo para relacionar os grupos e movimentos
+        return $this->hasMany(Moviment::class); // Grupo tem muitos movimentos
     }
 
 }
