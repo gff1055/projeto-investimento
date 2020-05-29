@@ -23,6 +23,12 @@ class MovimentsController extends Controller{
         $this->validator  = $validator;
     }
 
+    public function index(){
+        return view('moviment.index', [
+            'product_list' => Product::all(),
+        ]);
+    }
+
 
     public function application(){              // Metodo para jogar a view 'moviment.application' na tela
 

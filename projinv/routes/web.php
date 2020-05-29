@@ -31,19 +31,7 @@ Route::get('/user', [
     'uses' => 'UsersController@index'
 ]);
 
-Route::resource(                                // DEFININDO UM GRUPO DE ROTAS(delete, update, etc...) PARA USERS(usersController)
-    'user',                                     // Nome da rota
-    'UsersController'                           // Nome do controller
-    // Array de dados (Nome das rotas)
-    /*
-    ..........
-    */
-);
 
-
-Route::resource('institution','InstitutionsController');    // Cria estrutura (INDEX, STORE, ETC....) para as instituicoes
-Route::resource('group', 'GroupsController');   // Rota RESOURCE (rotas para INDEX, STORE, UPDATE, NEW, SHOW, CREATE....) para GROUPS
-Route::resource('institution.product','ProductsController');    // Nessa rota o escopo de produto esta dentro da instituicao
 
 Route::get('moviment', [                        // URL...
     'as' => 'moviment.application',             // nome da rota
@@ -55,10 +43,32 @@ Route::post('moviment', [
     'uses' => 'MovimentsController@storeApplication'
 ]);
 
+Route::get('user/moviment', [
+    'as' => 'moviment.index',
+    'uses' => 'MovimentsController@index'
+]);
+
+
+
+Route::resource(                                // DEFININDO UM GRUPO DE ROTAS(delete, update, etc...) PARA USERS(usersController)
+    'user',                                     // Nome da rota
+    'UsersController'                           // Nome do controller
+    // Array de dados (Nome das rotas)
+    /*
+    ..........
+    */
+);
+
+Route::resource('institution','InstitutionsController');    // Cria estrutura (INDEX, STORE, ETC....) para as instituicoes
+Route::resource('group', 'GroupsController');   // Rota RESOURCE (rotas para INDEX, STORE, UPDATE, NEW, SHOW, CREATE....) para GROUPS
+Route::resource('institution.product','ProductsController');    // Nessa rota o escopo de produto esta dentro da instituicao
+
 Route::post('group/{group}/user', [
     'as' => 'group.user.store',
     'uses' => 'GroupsController@userStore'
 ]);
+
+
 
 
 
