@@ -17,6 +17,18 @@ class Product extends Model implements Transformable{
         return $this->belongsTo(Institution::class);    //Indica que o 'Product' pertence a uma institution
     }
 
+    public function valueFromUser(User $user){
+        $total = 0;
+        foreach($this->moviments as $moviment)
+            $total += $moviment->value;
+
+        return $total;
+    }
+
+    public function moviments(){
+        return $this->hasMany(Moviment::class);
+    }
+
 
 
     

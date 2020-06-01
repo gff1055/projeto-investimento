@@ -19,7 +19,9 @@
     <tbody>
         @foreach ($product_list as $product)       <!-- utilizando colecao de usuarios vindos do controller(user) -->
             <tr>
-                
+                <td>{{ $product->name }}</td>
+                <td>{{ $product->institution->name }}</td>
+                <td>{{ $product->valueFromUser(Auth::user()) }}</td>
             </tr>
         @endforeach
     </tbody>
