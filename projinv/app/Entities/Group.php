@@ -14,12 +14,7 @@ class Group extends Model implements Transformable{
 
 
     public function getTotalValueAttribute(){   // Metodo Acessor para retornar o valor total investido no grupo
-        $total = 0;
-        
-        foreach($this->moviments as $moviment)  // Percorre os movimentos efetuados no grupo
-            $total += $moviment->value;         // Soma os valores dos movimentos
-
-        return $total;                          // Retorna o total de valores
+        return $this->moviments->sum('value');  // Retorna o total de valores
     }
 
     /*** CRIANDO RELACIONAMENTOS ENTRE ENTIDADES ***/

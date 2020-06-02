@@ -18,11 +18,10 @@ class Product extends Model implements Transformable{
     }
 
     public function valueFromUser(User $user){
-        $total = 0;
-        foreach($this->moviments as $moviment)
-            $total += $moviment->value;
-
-        return $total;
+        
+        $inflows = $this->moviments()->product($this)->applications()->sum('value');
+        $outflows = $this->moviments()->product($this)->outflows()->sum('value');
+        return $inflows - $outflows;
     }
 
     public function moviments(){
