@@ -17,7 +17,7 @@
     </thead>
 
     <tbody>
-        @foreach ($product_list as $product)       <!-- utilizando colecao de usuarios vindos do controller(user) -->
+        @foreach ($product_list as $product)       <!-- utilizando colecao de produtos vindos do controller -->
             <tr>
                 <td>{{ $product->name }}</td>
                 <td>{{ $product->institution->name }}</td>

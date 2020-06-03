@@ -23,7 +23,7 @@ class MovimentsController extends Controller{
         $this->validator  = $validator;
     }
 
-    public function index(){
+    public function index(){                    // retorna uma lista dos produtos e a quantidade investida
         return view('moviment.index', [
             'product_list' => Product::all(),
         ]);
@@ -33,9 +33,7 @@ class MovimentsController extends Controller{
     public function application(){              // Metodo para jogar a view 'moviment.application' na tela
 
         $user = Auth::user();
-        //dd($user->groups);
-        //dd(Auth::user());
-
+        
         $group_list = $user->groups->pluck('name','id'); // Associa nome nome do grupo com o ID
         $product_list = Product::all()->pluck('name','id'); // Associa nome nome do grupo com o ID
 

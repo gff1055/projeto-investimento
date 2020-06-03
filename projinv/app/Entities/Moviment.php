@@ -20,11 +20,11 @@ class Moviment extends Model implements Transformable{
         return $query->where('product_id', $product->id);
     }
 
-    public function scopeApplications($query){
+    public function scopeApplications($query){  // Escopo para trazer apenas aplicacoes financeiras
         return $query->where('type', 1);
     }
 
-    public function scopeOutflows($query){
+    public function scopeOutflows($query){      // Escopo para trazer as saidas
         return $query->where('type', 2);
     }
 

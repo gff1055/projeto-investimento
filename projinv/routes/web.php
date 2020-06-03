@@ -43,7 +43,7 @@ Route::post('moviment', [
     'uses' => 'MovimentsController@storeApplication'
 ]);
 
-Route::get('user/moviment', [
+Route::get('user/moviment', [                   // Rota para os movimentos do usuario
     'as' => 'moviment.index',
     'uses' => 'MovimentsController@index'
 ]);
