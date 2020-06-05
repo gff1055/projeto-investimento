@@ -48,6 +48,11 @@ Route::get('user/moviment', [                   // Rota para os movimentos do us
     'uses' => 'MovimentsController@index'
 ]);
 
+Route::get('moviment/all', [
+    'as' => 'moviment.all',
+    'uses' => 'MovimentsController@all',
+]);
+
 
 
 Route::resource(                                // DEFININDO UM GRUPO DE ROTAS(delete, update, etc...) PARA USERS(usersController)

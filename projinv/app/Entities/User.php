@@ -18,6 +18,10 @@ class User extends Authenticatable{
         return $this->belongsToMany(Group::class, 'user_groups');       // Relacionamento N:N
     }
 
+    public function moviments(){
+        return $this->hasMany(Moviment::class);
+    }
+
     /*Metodo para trabalhar o registro da senha*/
     /** metodo para definir a senha
      * Toda vez que for definido um password para o objeto, esse metodo será acionado
