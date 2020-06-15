@@ -60,10 +60,42 @@ class MovimentsController extends Controller{
 
         return redirect()->route('moviment.application');   // redireciona para a rota que ja estava antes
     }
-    
 
-    public function all(){
-        $moviment_list = Auth::user()->moviments;
+
+    public function getback(){              // Metodo para jogar a view 'moviment.getback' na tela
+
+        $user = Auth::user();
+        
+        $group_list = $user->groups->pluck('name','id'); // Associa nome nome do grupo com o ID
+        $product_list = Product::all()->pluck('name','id'); // Associa nome nome do grupo com o ID
+
+        return view('moviment.getback', [
+            'group_list' => $group_list,
+            'product_list' => $product_list
+        ]);
+    }
+
+    
+    public function storeGetBack(Request $request){ // Metodo para registrar as movimentações financeiras
+
+        $movimento = Moviment::create([         // Cria o registro de moviment
+            'user_id' => Auth::user()->id,      // id do usuario
+            'group_id' => $request->get('group_id'),    // id do grupo
+            'product_id' => $request->get('product_id'),    // id do produto
+            'value' => $request->get('value'),  // valor da movimentação
+            'type' => 2                         // tipo de movimentacao 1(adicao) ou 2(resgate)
+        ]);
+
+        session()->flash('success',[            
+            'success' => true,
+            'messages'=> "Seu resgate de  ".$movimento->value." no produto ".$movimento->product->name." foi realizada com sucesso"
+        ]);
+
+        return redirect()->route('moviment.application');   // redireciona para a rota que ja estava antes
+    }    
+
+    public function all(){                      // Metodo para retornar para a view todos os movimentos do usuario
+        $moviment_list = Auth::user()->moviments;   //Traz todos os movimentos do usuario
 
         return view('moviment.all', [
             'moviment_list' => $moviment_list,

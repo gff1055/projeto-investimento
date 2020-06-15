@@ -33,6 +33,17 @@ Route::get('/user', [
 
 
 
+Route::get('getback', [                        // URL...
+    'as' => 'moviment.getback',             // nome da rota
+    'uses' => 'MovimentsController@getback' // Metodo do controler onde sera redirecionado
+]);
+
+Route::post('getback', [                        // Rota para resgate financeiro
+    'as' => 'moviment.getback.store',
+    'uses' => 'MovimentsController@storeGetback'
+]);
+
+
 Route::get('moviment', [                        // URL...
     'as' => 'moviment.application',             // nome da rota
     'uses' => 'MovimentsController@application' // Metodo do controler onde sera redirecionado
@@ -48,7 +59,9 @@ Route::get('user/moviment', [                   // Rota para os movimentos do us
     'uses' => 'MovimentsController@index'
 ]);
 
-Route::get('moviment/all', [
+
+
+Route::get('moviment/all', [                    // Rota para listar todos os movimentos do usuario
     'as' => 'moviment.all',
     'uses' => 'MovimentsController@all',
 ]);

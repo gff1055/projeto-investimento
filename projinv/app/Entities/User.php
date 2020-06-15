@@ -18,7 +18,7 @@ class User extends Authenticatable{
         return $this->belongsToMany(Group::class, 'user_groups');       // Relacionamento N:N
     }
 
-    public function moviments(){
+    public function moviments(){                // O usuario possi varios movimentos
         return $this->hasMany(Moviment::class);
     }
 
