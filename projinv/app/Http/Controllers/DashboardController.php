@@ -36,6 +36,7 @@ class DashboardController extends Controller{
                 Auth::attempt($data, false);    /* Fazendo uma tentativa de autenticação */
             
             else{
+                dd($this->repository);
                 $user = $this->repository->findWhere(['email' => $request->get('username')])->first();  /* buscando o email inserido e atribui o username usuario se existir*/
                 
                 if(!$user)                      /* Testa se o usuario existe */
